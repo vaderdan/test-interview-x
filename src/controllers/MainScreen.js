@@ -36,7 +36,7 @@ class MainScreen extends React.Component {
                     <Text style={styles.mainTitle}>This Month you save <Text style={styles.mainTitleBold}>$98.00</Text></Text>
                     <Image style={styles.mainImage} resizeMode="contain" source={require('../images/front_image.png')}/>
                 </View>
-                <TiltedView style={{borderTopColor: globalVariables.green, height: 20 }}/>
+                <TiltedView style={styles.containerTiledTop}/>
                 <View>
                     <Button onPress={this.onNav} title="Nav next"/>
                 </View>
@@ -72,11 +72,15 @@ const styles = StyleSheet.create({
         backgroundColor: '#39414E'
     },
     containerTop: {
-        height: 300,
+        height: 200,
         justifyContent: 'flex-start',
         alignItems: 'stretch',
         backgroundColor: globalVariables.green,
         padding: 10,
+    },
+    containerTiledTop: {
+        borderTopColor: globalVariables.green, 
+        height: 20,
     },
     mainImage: {
         height: 150,

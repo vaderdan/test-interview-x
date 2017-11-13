@@ -16,7 +16,7 @@ class TiltedView extends React.Component {
 
         
 
-        return <View style={{position: 'relative', width: style_width, height: style_height}}>
+        return <View style={{position: 'relative', width: style_width, height: style_height+20, overflow: 'hidden'}}>
             <View style={[styles.triangleCorner, this.props.style, {
                 borderRightWidth: style_height,
                 borderTopWidth: style_width,
@@ -41,6 +41,12 @@ var styles = StyleSheet.create({
         borderStyle: 'solid',
         borderRightColor: 'transparent',
         borderTopColor: 'red',
+
+
+        shadowOffset:{  width: 8,  height: 0,  },
+        shadowColor: 'black',
+        shadowOpacity: 1.0,
+        shadowRadius: 10,
     }
 })
 
