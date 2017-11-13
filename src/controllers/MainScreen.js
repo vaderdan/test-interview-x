@@ -11,11 +11,10 @@ const {
     Text,
     TextInput
 } = require('react-native')
-const { Component } = React
 
 import { Button } from 'react-native-elements'
 import FlatList from '../lib/FlatList'
-
+import TiltedView from '../views/TiltedView'
 
 class MainScreen extends React.Component {
 
@@ -37,6 +36,7 @@ class MainScreen extends React.Component {
                     <Text style={styles.mainTitle}>This Month you save <Text style={styles.mainTitleBold}>$98.00</Text></Text>
                     <Image style={styles.mainImage} resizeMode="contain" source={require('../images/front_image.png')}/>
                 </View>
+                <TiltedView style={{borderTopColor: globalVariables.green, height: 20 }}/>
                 <View>
                     <Button onPress={this.onNav} title="Nav next"/>
                 </View>
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'stretch',
         backgroundColor: globalVariables.green,
-        padding: 10
+        padding: 10,
     },
     mainImage: {
         height: 150,
