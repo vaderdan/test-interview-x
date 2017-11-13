@@ -1,57 +1,58 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+import _ from 'lodash'
 
-import React, { Component } from 'react';
+import React from 'react';
 import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+    AppRegistry,
+    View,
+    Text,
+    StyleSheet,
+    Button
+} from 'react-native'
+import { StackNavigator } from 'react-navigation'
+import LazyView from './lib/LazyView'
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
 
-export default class App extends Component<{}> {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
-    );
-  }
+import globalVariables from './config/styles.config'
+import routes from './config/routes.config'
+
+
+
+const defaultNavigationOptions = (navigation) => {
+    return {
+        headerTintColor: globalVariables.backgroundSecondaryContrast,
+        headerStyle: [styles.navBar, {
+            backgroundColor: globalVariables.background
+        }]
+    }
+}
+
+const AppNavigation = StackNavigator({
+    ...routes
+}, {
+    initialRouteName: 'MainScreen',
+    navigationOptions: (navigation) => {
+        return _.extend(defaultNavigationOptions(navigation), {})
+    }
+})
+
+
+
+
+
+
+
+export default class myapp extends React.Component {
+    render() {
+        return (
+            <LazyView style={styles.container}>
+                <AppNavigation/>
+            </LazyView>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+    container: {
+        flex: 1
+    }
+})
