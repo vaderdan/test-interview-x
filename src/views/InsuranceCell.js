@@ -12,6 +12,8 @@ const {
 
 import Icon from 'react-native-vector-icons/FontAwesome'
 
+import DeleteButton from './DeleteButton'
+
 class InsuranceCell extends React.Component {
 
     
@@ -24,7 +26,7 @@ class InsuranceCell extends React.Component {
                 <Text style={styles.titleText}>100,00</Text> 
                 <Text style={styles.subtitleText}>Yearly premium 1</Text> 
             </View>
-            <Icon name="trash" size={20} color={globalVariables.white} />   
+            <DeleteButton/>
         </View>
     }
 }
