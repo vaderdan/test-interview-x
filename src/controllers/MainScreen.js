@@ -1,5 +1,6 @@
 import globalVariables from '../config/styles.config'
 import { width } from '../config/dimensions.config'
+import {observer} from 'mobx-react/native'
 
 const React = require('react')
 const {
@@ -17,7 +18,12 @@ import FlatList from '../lib/FlatList'
 import TiltedView from '../views/TiltedView'
 import BalloonButton from '../views/BalloonButton'
 
-class MainScreen extends React.Component {
+import Pagination from '../lib/Pagination'
+
+import SeparatorCell from '../views/SeparatorCell'
+import InsuranceCell from '../views/InsuranceCell'
+
+@observer class MainScreen extends React.Component {
 
     static navigationOptions = () => ({
         title: 'My insurance',
@@ -28,6 +34,36 @@ class MainScreen extends React.Component {
 
     onNav = () => {
         this.props.navigation.navigate('MainScreen')
+    }
+
+    constructor(props) {
+        super(props)
+
+        this.pagination = new Pagination()
+
+        this.pagination.delegate.fetchResults = (page, start, finish) => {
+            start()
+
+            finish(null, [{id: 'text'}, {id:'text2'}, {id:'text3'}], false)
+        }
+
+        this.pagination.delegate.fetchNextResults = (page, start, finish) => {
+            start()
+            
+            finish(null, [{id: 'text'}, {id:'text2'}], false)
+        }
+    }
+
+    componentDidMount() {
+        this.pagination.startFetchingResults()
+    }
+
+    renderItem = ({item, index}) => {
+        return <InsuranceCell/>
+    }
+
+    renderSeparator = () => {
+        return <SeparatorCell/>
     }
   
     render() {
@@ -43,9 +79,16 @@ class MainScreen extends React.Component {
                     <BalloonButton disabled title="Account" icon="money"/>
                     <BalloonButton disabled title="Statistics" icon="area-chart"/>
                 </View>
-                <View>
-                    <Button onPress={this.onNav} title="Nav next"/>
-                </View>
+                <FlatList
+                    data={this.pagination.results.slice()}
+                    renderItem={this.renderItem}
+                    ItemSeparatorComponent={this.renderSeparator}
+                    keyExtractor={(item) => item.id}
+                    onEndReached={this.pagination.startFetchingNextResults}
+                    keyboardShouldPersistTaps='never'
+                    style={styles.container}
+                />
+                <Button onPress={this.onNav} title="Nav next"/>
             </View>
         )
     }
@@ -69,10 +112,7 @@ var headerStyles = {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        position: 'relative',
-        justifyContent: 'flex-start',
-        backgroundColor: '#F5FCFF',
+        flex: 1
     },
     containerBackground: {
         backgroundColor: '#39414E'
