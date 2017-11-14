@@ -16,8 +16,8 @@ class TiltedView extends React.Component {
 
         
 
-        return <View style={{position: 'relative', width: style_width, height: style_height+20, overflow: 'hidden'}}>
-            <View style={[styles.triangleCorner, this.props.style, {
+        return <View pointerEvents="none"  style={{position: 'relative', width: style_width, height: style_height+20, overflow: 'hidden'}}>
+            <View pointerEvents="none"  style={[styles.triangleCorner, this.props.style, {
                 borderRightWidth: style_height,
                 borderTopWidth: style_width,
                 transform: [

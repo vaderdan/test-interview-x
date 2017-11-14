@@ -15,6 +15,7 @@ const {
 import { Button } from 'react-native-elements'
 import FlatList from '../lib/FlatList'
 import TiltedView from '../views/TiltedView'
+import BalloonButton from '../views/BalloonButton'
 
 class MainScreen extends React.Component {
 
@@ -37,6 +38,11 @@ class MainScreen extends React.Component {
                     <Image style={styles.mainImage} resizeMode="contain" source={require('../images/front_image.png')}/>
                 </View>
                 <TiltedView style={styles.containerTiledTop}/>
+                <View style={{flexDirection: 'row', justifyContent: 'space-around', marginTop: -40, zIndex: -1}}>
+                    <BalloonButton title="Add" icon="plus"/>
+                    <BalloonButton disabled title="Account" icon="money"/>
+                    <BalloonButton disabled title="Statistics" icon="area-chart"/>
+                </View>
                 <View>
                     <Button onPress={this.onNav} title="Nav next"/>
                 </View>
