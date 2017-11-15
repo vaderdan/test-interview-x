@@ -1,5 +1,5 @@
 import globalVariables from '../config/styles.config'
-import { width } from '../config/dimensions.config'
+import { width, height } from '../config/dimensions.config'
 import {observer} from 'mobx-react/native'
 
 const React = require('react')
@@ -10,7 +10,8 @@ const {
     View,
     Image,
     Text,
-    TextInput
+    TextInput,
+    Animated
 } = require('react-native')
 
 import { Button } from 'react-native-elements'
@@ -36,8 +37,35 @@ import InsuranceCell from '../views/InsuranceCell'
         this.props.navigation.navigate('MainScreen')
     }
 
+    changeSelected(selected) {
+        if (selected == 0) {
+            Animated.timing(
+                this.animatedPosition,
+                { toValue: -1, duration: 200, useNativeDriver: true },
+            ).start()
+        }
+        else if (selected == 1) {
+            Animated.timing(
+                this.animatedPosition,
+                { toValue: 1, duration: 200, useNativeDriver: true },
+            ).start()
+        }
+        else {
+            Animated.timing(
+                this.animatedPosition,
+                { toValue: 2, duration: 200, useNativeDriver: true },
+            ).start()
+        }
+    }
+
+    transformInterpolate = () => {
+        return this.animatedPosition.interpolate({inputRange: [0, 1, 2], outputRange: [-100, 0, 100], extrapolate: 'clamp'})
+    }
+
     constructor(props) {
         super(props)
+
+        this.animatedPosition = new Animated.Value(1),
 
         this.pagination = new Pagination()
 
@@ -68,27 +96,35 @@ import InsuranceCell from '../views/InsuranceCell'
   
     render() {
         return (
-            <View style={[styles.container, styles.containerBackground]}>
-                <View style={styles.containerTop}>
-                    <Text style={styles.mainTitle}>This Month you save <Text style={styles.mainTitleBold}>$98.00</Text></Text>
-                    <Image style={styles.mainImage} resizeMode="contain" source={require('../images/front_image.png')}/>
-                </View>
-                <TiltedView style={styles.containerTiledTop}/>
-                <View style={{flexDirection: 'row', justifyContent: 'space-around', marginTop: -40, zIndex: -1}}>
-                    <BalloonButton title="Add" icon="plus"/>
-                    <BalloonButton disabled title="Account" icon="money"/>
-                    <BalloonButton disabled title="Statistics" icon="area-chart"/>
-                </View>
-                <FlatList
-                    data={this.pagination.results.slice()}
-                    renderItem={this.renderItem}
-                    ItemSeparatorComponent={this.renderSeparator}
-                    keyExtractor={(item) => item.id}
-                    onEndReached={this.pagination.startFetchingNextResults}
-                    keyboardShouldPersistTaps='never'
-                    style={styles.container}
-                />
-                <Button onPress={this.onNav} title="Nav next"/>
+            <View style={styles.containerOuter}>
+                <Animated.View style={[styles.container, styles.containerMain, { transform: [{translateY: this.transformInterpolate() }] }]}>
+                    <View style={styles.containerTop}>
+                        <View>
+                            <Text style={styles.mainTitle}>This Month you save <Text style={styles.mainTitleBold}>$98.00</Text></Text>
+                            <Image style={styles.mainImage} resizeMode="contain" source={require('../images/front_image.png')}/>
+                        </View>
+                    </View>
+                    <TiltedView style={styles.containerTiledTop}/>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-around', marginTop: -40, zIndex: -1}}>
+                        <BalloonButton onPress={() => this.changeSelected(0)} title="Add" icon="plus"/>
+                        <BalloonButton onPress={() => this.changeSelected(1)} disabled title="Account" icon="money"/>
+                        <BalloonButton onPress={() => this.changeSelected(2)} disabled title="Statistics" icon="area-chart"/>
+                    </View>
+                    <View style={styles.containerBottom}>
+                        <View style={{height: 250}}>
+                            <FlatList
+                                data={this.pagination.results.slice()}
+                                renderItem={this.renderItem}
+                                ItemSeparatorComponent={this.renderSeparator}
+                                keyExtractor={(item) => item.id}
+                                onEndReached={this.pagination.startFetchingNextResults}
+                                keyboardShouldPersistTaps='never'
+                                style={styles.container}
+                            />
+                        </View>
+                        <Button onPress={this.onNav} title="Nav next"/>
+                    </View>
+                </Animated.View>
             </View>
         )
     }
@@ -114,15 +150,26 @@ const styles = StyleSheet.create({
     container: {
         flex: 1
     },
-    containerBackground: {
-        backgroundColor: '#39414E'
+    containerOuter: {
+        flex: 1,
+        backgroundColor: globalVariables.green,
+    },
+    containerMain: {
+        backgroundColor: globalVariables.background,
     },
     containerTop: {
-        height: 200,
-        justifyContent: 'flex-start',
+        height: height/2.8+300,
+        marginTop: -300,
+        justifyContent: 'flex-end',
         alignItems: 'stretch',
         backgroundColor: globalVariables.green,
         padding: 10,
+    },
+    containerBottom: {
+        flex: 1,
+        backgroundColor: globalVariables.background,
+        marginBottom: -300,
+        justifyContent: 'flex-start',
     },
     containerTiledTop: {
         borderTopColor: globalVariables.green, 

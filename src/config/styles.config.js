@@ -9,7 +9,7 @@ export default {
     orange: '#ff6204',
     red: '#ff0000',
     secondary: '#ff0000',
-    background: '#ffffff',
+    background: '#39414E',
     backgroundContrast: '#000000',
     backgroundSecondaryContrast: '#A8A8A8',
     background2: '#f5f5f5',
