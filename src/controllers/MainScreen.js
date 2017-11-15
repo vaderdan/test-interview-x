@@ -10,6 +10,7 @@ const {
     View,
     Image,
     Text,
+    StatusBar,
     TextInput,
     Animated
 } = require('react-native')
@@ -97,6 +98,7 @@ import InsuranceCell from '../views/InsuranceCell'
     render() {
         return (
             <View style={styles.containerOuter}>
+                <StatusBar barStyle="light-content"/>
                 <Animated.View style={[styles.container, styles.containerMain, { transform: [{translateY: this.transformInterpolate() }] }]}>
                     <View style={styles.containerTop}>
                         <View>
