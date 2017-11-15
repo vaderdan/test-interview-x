@@ -22,6 +22,7 @@ import BalloonButton from '../views/BalloonButton'
 
 import Pagination from '../lib/Pagination'
 
+import MiddleTabbar from '../views/MiddleTabbar'
 import SeparatorCell from '../views/SeparatorCell'
 import InsuranceCell from '../views/InsuranceCell'
 
@@ -38,7 +39,7 @@ import InsuranceCell from '../views/InsuranceCell'
         this.props.navigation.navigate('MainScreen')
     }
 
-    changeSelected(selected) {
+    changeSelected = (selected) => {
         if (selected == 0) {
             Animated.timing(
                 this.animatedPosition,
@@ -107,11 +108,7 @@ import InsuranceCell from '../views/InsuranceCell'
                         </View>
                     </View>
                     <TiltedView style={styles.containerTiledTop}/>
-                    <View style={{flexDirection: 'row', justifyContent: 'space-around', marginTop: -40, zIndex: -1}}>
-                        <BalloonButton onPress={() => this.changeSelected(0)} title="Add" icon="plus"/>
-                        <BalloonButton onPress={() => this.changeSelected(1)} disabled title="Account" icon="money"/>
-                        <BalloonButton onPress={() => this.changeSelected(2)} disabled title="Statistics" icon="area-chart"/>
-                    </View>
+                    <MiddleTabbar onChange={this.changeSelected}/>
                     <View style={styles.containerBottom}>
                         <View style={{height: 250}}>
                             <FlatList

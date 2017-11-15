@@ -10,6 +10,7 @@ const {
 } = require('react-native')
 
 import Icon from 'react-native-vector-icons/FontAwesome'
+import * as Animatable from 'react-native-animatable'
 
 const radius = 60
 
@@ -22,20 +23,21 @@ class BalloonButton extends React.Component {
         disabled: false,
         title: 'Money',
         icon: 'plus',
+        style: {},
         onPress: () => {}
     }
 
     render() {
         var backgroundColor = this.props.disabled ? this.props.disabledColor : this.props.backgroundColor
 
-        return <View style={{position: 'relative', alignItems: 'center'}}>
+        return <Animatable.View useNativeDriver transition="translateY" style={[{position: 'relative', alignItems: 'center'}, {transform: [{translateY: !this.props.disabled ? 30 : 0 }]}, this.props.style]}>
             <View style={[styles.ballon1, {backgroundColor: backgroundColor}]}></View>
             <View style={[styles.ballon2, {backgroundColor: backgroundColor}]}></View>
             <TouchableHighlight activeOpacity={0.5} underlayColor={backgroundColor} style={[styles.buttonContainer, {backgroundColor: backgroundColor}]} onPress={this.props.onPress}>
                 <Icon name={this.props.icon} size={20} color={globalVariables.white} />   
             </TouchableHighlight>
             <Text style={styles.buttonText}>{this.props.title}</Text>
-        </View>
+        </Animatable.View>
     }
 }
 
