@@ -21,7 +21,8 @@ class BalloonButton extends React.Component {
         color: globalVariables.white,
         disabled: false,
         title: 'Money',
-        icon: 'plus'
+        icon: 'plus',
+        onPress: () => {}
     }
 
     render() {
@@ -30,7 +31,7 @@ class BalloonButton extends React.Component {
         return <View style={{position: 'relative', alignItems: 'center'}}>
             <View style={[styles.ballon1, {backgroundColor: backgroundColor}]}></View>
             <View style={[styles.ballon2, {backgroundColor: backgroundColor}]}></View>
-            <TouchableHighlight activeOpacity={0.5} underlayColor={backgroundColor} style={[styles.buttonContainer, {backgroundColor: backgroundColor}]} onPress={() => {}}>
+            <TouchableHighlight activeOpacity={0.5} underlayColor={backgroundColor} style={[styles.buttonContainer, {backgroundColor: backgroundColor}]} onPress={this.props.onPress}>
                 <Icon name={this.props.icon} size={20} color={globalVariables.white} />   
             </TouchableHighlight>
             <Text style={styles.buttonText}>{this.props.title}</Text>
