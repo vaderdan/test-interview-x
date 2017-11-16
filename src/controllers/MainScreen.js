@@ -52,8 +52,8 @@ var animatedColor = new Animated.Value(0)
             ).start()
         }
         else if (selected == 1) {
-            let navigateAction = NavigationActions.navigate({ routeName: 'AddScreen' })
-            this.navigationTop.dispatch(navigateAction)     
+            let navigateAction = NavigationActions.navigate({ routeName: 'StatsScreen' })
+            this.navigationTop.dispatch(navigateAction)   
             
             let navigateAction2 = NavigationActions.navigate({ routeName: 'DefaultScreen' })
             this.navigationBottom.dispatch(navigateAction2)   
@@ -68,10 +68,10 @@ var animatedColor = new Animated.Value(0)
             ).start()
         }
         else {
-            let navigateAction = NavigationActions.navigate({ routeName: 'StatsScreen' })
-            this.navigationTop.dispatch(navigateAction)   
+            let navigateAction = NavigationActions.navigate({ routeName: 'AddScreen' })
+            this.navigationTop.dispatch(navigateAction)     
             
-            let navigateAction2 = NavigationActions.navigate({ routeName: 'DefaultScreen' })
+            let navigateAction2 = NavigationActions.navigate({ routeName: 'DefaultEmptyScreen' })
             this.navigationBottom.dispatch(navigateAction2)   
 
             Animated.timing(
@@ -86,11 +86,11 @@ var animatedColor = new Animated.Value(0)
     }
 
     transformInterpolate = () => {
-        return animatedPosition.interpolate({inputRange: [0, 1, 2], outputRange: [0, 50, 80], extrapolate: 'clamp'})
+        return animatedPosition.interpolate({inputRange: [0, 1, 2], outputRange: [0, 80, 160], extrapolate: 'clamp'})
     }
 
     colorInterpolate = () => {
-        return animatedColor.interpolate({inputRange: [0, 1, 2], outputRange: ['rgba(87, 217, 164, 1)', 'rgba(130, 120, 243, 1)', 'rgba(241, 121, 171, 1)'], extrapolate: 'clamp'})
+        return animatedColor.interpolate({inputRange: [0, 1, 2], outputRange: ['rgba(87, 217, 164, 1)', 'rgba(241, 121, 171, 1)', 'rgba(130, 120, 243, 1)'], extrapolate: 'clamp'})
     }
   
     render() {

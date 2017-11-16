@@ -17,6 +17,7 @@ class AddScreen extends React.Component {
 
     render() {
         return <View style={styles.containerMain}>
+            <View style={{backgroundColor: 'red', width: width, height: 40}}></View>
             <Image style={styles.mainImage} resizeMode="cover" source={require('../images/front_image2.png')}/>
         </View>
     }

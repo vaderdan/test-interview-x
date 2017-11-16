@@ -42,7 +42,7 @@ const NavigationTop = TabNavigator({
 })
 
 const NavigationBottom = TabNavigator({
-    ..._.pick(routes, ['ListInsuranceScreen', 'DefaultScreen'])
+    ..._.pick(routes, ['ListInsuranceScreen', 'DefaultScreen', 'DefaultEmptyScreen'])
 }, {
     initialRouteName: 'ListInsuranceScreen',
     navigationOptions: (navigation) => ({tabBarVisible: false})

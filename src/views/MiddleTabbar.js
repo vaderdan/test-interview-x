@@ -30,8 +30,8 @@ class MiddleTabbar extends React.Component {
     render() {
         return <View style={{flexDirection: 'row', justifyContent: 'space-around', marginTop: -40, height: 110, zIndex: -1}}>
             <BalloonButton onPress={() => this.onChange(0)} disabled={this.state.selected != 0} title="Account" icon="money" backgroundColor={globalVariables.green}/>
-            <BalloonButton onPress={() => this.onChange(1)} disabled={this.state.selected != 1} title="Add" icon="plus" backgroundColor={globalVariables.blue}/>
-            <BalloonButton onPress={() => this.onChange(2)} disabled={this.state.selected != 2} title="Statistics" icon="area-chart" backgroundColor={globalVariables.pink}/>
+            <BalloonButton onPress={() => this.onChange(1)} disabled={this.state.selected != 1} title="Statistics" icon="area-chart" backgroundColor={globalVariables.pink}/>
+            <BalloonButton onPress={() => this.onChange(2)} disabled={this.state.selected != 2} title="Add" icon="plus" backgroundColor={globalVariables.blue}/>
         </View>
     }
 }

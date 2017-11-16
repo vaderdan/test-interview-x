@@ -3,6 +3,7 @@ import MyInsuranceScreen from '../controllers/MyInsuranceScreen'
 import ListInsuranceScreen from '../controllers/ListInsuranceScreen'
 import AddScreen from '../controllers/AddScreen'
 import DefaultScreen from '../controllers/DefaultScreen'
+import DefaultEmptyScreen from '../controllers/DefaultEmptyScreen'
 import StatsScreen from '../controllers/StatsScreen'
 
 
@@ -19,6 +20,7 @@ let routes = {
     AddScreen: { screen: hocStopComponent(hocPropsComponent(AddScreen)) },
     DefaultScreen: { screen: hocStopComponent(hocPropsComponent(DefaultScreen)) },
     StatsScreen: { screen: hocStopComponent(hocPropsComponent(StatsScreen)) },
+    DefaultEmptyScreen: { screen: hocStopComponent(hocPropsComponent(DefaultEmptyScreen)) },
 }
 
 export default routes
