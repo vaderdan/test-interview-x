@@ -20,7 +20,12 @@ import BalloonButton from '../views/BalloonButton'
 
 import MiddleTabbar from '../views/MiddleTabbar'
 
-import { NavigationActions } from 'react-navigation'
+import { NavigationActions, StackNavigator, TabNavigator } from 'react-navigation'
+
+var animatedPosition = new Animated.Value(0)
+var animatedColor = new Animated.Value(0)
+
+import Header from 'react-navigation/lib/views/Header/Header'
 
 @observer class MainScreen extends React.Component {
 
@@ -40,8 +45,12 @@ import { NavigationActions } from 'react-navigation'
             this.navigationBottom.dispatch(navigateAction2)   
 
             Animated.timing(
-                this.animatedPosition,
+                animatedPosition,
                 { toValue: 0, duration: 200, useNativeDriver: true },
+            ).start()
+            Animated.timing(
+                animatedColor,
+                { toValue: 0, duration: 200, useNativeDriver: false },
             ).start()
         }
         else if (selected == 1) {
@@ -52,8 +61,12 @@ import { NavigationActions } from 'react-navigation'
             this.navigationBottom.dispatch(navigateAction2)   
 
             Animated.timing(
-                this.animatedPosition,
+                animatedPosition,
                 { toValue: 1, duration: 200, useNativeDriver: true },
+            ).start()
+            Animated.timing(
+                animatedColor,
+                { toValue: 1, duration: 200, useNativeDriver: false },
             ).start()
         }
         else {
@@ -64,20 +77,22 @@ import { NavigationActions } from 'react-navigation'
             this.navigationBottom.dispatch(navigateAction2)   
 
             Animated.timing(
-                this.animatedPosition,
+                animatedPosition,
                 { toValue: 2, duration: 200, useNativeDriver: true },
+            ).start()
+            Animated.timing(
+                animatedColor,
+                { toValue: 2, duration: 200, useNativeDriver: false },
             ).start()
         }
     }
 
     transformInterpolate = () => {
-        return this.animatedPosition.interpolate({inputRange: [0, 1, 2], outputRange: [0, 50, 80], extrapolate: 'clamp'})
+        return animatedPosition.interpolate({inputRange: [0, 1, 2], outputRange: [0, 50, 80], extrapolate: 'clamp'})
     }
 
-    constructor(props) {
-        super(props)
-
-        this.animatedPosition = new Animated.Value(0)
+    colorInterpolate = () => {
+        return animatedColor.interpolate({inputRange: [0, 1, 2], outputRange: ['rgba(87, 217, 164, 1)', 'rgba(130, 120, 243, 1)', 'rgba(240, 120, 184, 1)'], extrapolate: 'clamp'})
     }
   
     render() {
@@ -85,10 +100,10 @@ import { NavigationActions } from 'react-navigation'
             <View style={styles.containerOuter}>
                 <StatusBar barStyle="light-content"/>
                 <Animated.View style={[styles.container, styles.containerMain, { transform: [{translateY: this.transformInterpolate() }] }]}>
-                    <View style={styles.containerTop}>
+                    <Animated.View style={[styles.containerTop, {backgroundColor: this.colorInterpolate()}]}>
                         { this.props.screenProps && <this.props.screenProps.NavigationTop ref={(ref) => { this.navigationTop = ref }}/>}
-                    </View>
-                    <TiltedView style={styles.containerTiledTop}/>
+                    </Animated.View>
+                    <TiltedView style={[styles.containerTiledTop, {borderTopColor: this.colorInterpolate()}]}/>
                     <MiddleTabbar onChange={this.changeSelected}/>
                     <View style={styles.containerBottom}>
                         { this.props.screenProps && <this.props.screenProps.NavigationBottom ref={(ref) => { this.navigationBottom = ref }}/>}
@@ -101,7 +116,7 @@ import { NavigationActions } from 'react-navigation'
 
 var headerStyles = { 
     headerStyle: {
-        backgroundColor: globalVariables.green,
+        backgroundColor: globalVariables.transparent,
         shadowOpacity: 0,
         shadowOpacity: 0,
         shadowOffset: {

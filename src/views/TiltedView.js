@@ -3,7 +3,8 @@ import _ from 'lodash'
 const React = require('react')
 const {
     View,
-    StyleSheet
+    StyleSheet,
+    Animated
 } = require('react-native')
 
 import { width } from '../config/dimensions.config'
@@ -17,7 +18,7 @@ class TiltedView extends React.Component {
         
 
         return <View pointerEvents="none"  style={{position: 'relative', width: style_width, height: style_height+20, overflow: 'hidden'}}>
-            <View pointerEvents="none"  style={[styles.triangleCorner, this.props.style, {
+            <Animated.View pointerEvents="none"  style={[styles.triangleCorner, this.props.style, {
                 borderRightWidth: style_height,
                 borderTopWidth: style_width,
                 transform: [

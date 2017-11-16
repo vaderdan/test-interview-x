@@ -26,7 +26,6 @@ var styles = StyleSheet.create({
     containerMain: {
         flex: 1,
         justifyContent: 'flex-end',
-        backgroundColor: 'red'
     },
 })
 

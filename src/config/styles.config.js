@@ -1,7 +1,6 @@
 export default {
     black: '#000000',
     backgroundDark: '#3B3B3B',
-    blue: '#22B8D8',
     primary: '#2ecc71',
     green: '#59D9A4',
     green2: '#00ff00',
@@ -22,5 +21,7 @@ export default {
     grayDark2: '#747578',
     white: '#ffffff',
     transparent: 'transparent',
-    disabled: '#dadee0'
+    disabled: '#dadee0',
+    pink: '#F478B8',
+    blue: '#8278F3',
 }
