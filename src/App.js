@@ -35,14 +35,14 @@ const AppNavigation = StackNavigator({
 
 
 const NavigationTop = TabNavigator({
-    ..._.pick(routes, ['MyInsuranceScreen'])
+    ..._.pick(routes, ['MyInsuranceScreen', 'AddScreen', 'StatsScreen'])
 }, {
     initialRouteName: 'MyInsuranceScreen',
     navigationOptions: (navigation) => ({tabBarVisible: false})
 })
 
 const NavigationBottom = TabNavigator({
-    ...routes
+    ..._.pick(routes, ['ListInsuranceScreen', 'DefaultScreen'])
 }, {
     initialRouteName: 'ListInsuranceScreen',
     navigationOptions: (navigation) => ({tabBarVisible: false})

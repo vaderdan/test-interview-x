@@ -15,11 +15,12 @@ const {
     Animated
 } = require('react-native')
 
-import { Button } from 'react-native-elements'
 import TiltedView from '../views/TiltedView'
 import BalloonButton from '../views/BalloonButton'
 
 import MiddleTabbar from '../views/MiddleTabbar'
+
+import { NavigationActions } from 'react-navigation'
 
 @observer class MainScreen extends React.Component {
 
@@ -30,24 +31,38 @@ import MiddleTabbar from '../views/MiddleTabbar'
         headerTintColor: globalVariables.white
     })
 
-    onNav = () => {
-        this.props.navigation.navigate('MainScreen')
-    }
-
     changeSelected = (selected) => {
         if (selected == 0) {
+            let navigateAction = NavigationActions.navigate({ routeName: 'MyInsuranceScreen' })
+            this.navigationTop.dispatch(navigateAction)   
+            
+            let navigateAction2 = NavigationActions.navigate({ routeName: 'ListInsuranceScreen' })
+            this.navigationBottom.dispatch(navigateAction2)   
+
             Animated.timing(
                 this.animatedPosition,
-                { toValue: -1, duration: 200, useNativeDriver: true },
+                { toValue: 0, duration: 200, useNativeDriver: true },
             ).start()
         }
         else if (selected == 1) {
+            let navigateAction = NavigationActions.navigate({ routeName: 'AddScreen' })
+            this.navigationTop.dispatch(navigateAction)     
+            
+            let navigateAction2 = NavigationActions.navigate({ routeName: 'DefaultScreen' })
+            this.navigationBottom.dispatch(navigateAction2)   
+
             Animated.timing(
                 this.animatedPosition,
                 { toValue: 1, duration: 200, useNativeDriver: true },
             ).start()
         }
         else {
+            let navigateAction = NavigationActions.navigate({ routeName: 'StatsScreen' })
+            this.navigationTop.dispatch(navigateAction)   
+            
+            let navigateAction2 = NavigationActions.navigate({ routeName: 'DefaultScreen' })
+            this.navigationBottom.dispatch(navigateAction2)   
+
             Animated.timing(
                 this.animatedPosition,
                 { toValue: 2, duration: 200, useNativeDriver: true },
@@ -56,13 +71,13 @@ import MiddleTabbar from '../views/MiddleTabbar'
     }
 
     transformInterpolate = () => {
-        return this.animatedPosition.interpolate({inputRange: [0, 1, 2], outputRange: [-100, 0, 100], extrapolate: 'clamp'})
+        return this.animatedPosition.interpolate({inputRange: [0, 1, 2], outputRange: [0, 50, 80], extrapolate: 'clamp'})
     }
 
     constructor(props) {
         super(props)
 
-        this.animatedPosition = new Animated.Value(1)
+        this.animatedPosition = new Animated.Value(0)
     }
   
     render() {
@@ -71,13 +86,12 @@ import MiddleTabbar from '../views/MiddleTabbar'
                 <StatusBar barStyle="light-content"/>
                 <Animated.View style={[styles.container, styles.containerMain, { transform: [{translateY: this.transformInterpolate() }] }]}>
                     <View style={styles.containerTop}>
-                        { this.props.screenProps && <this.props.screenProps.NavigationTop/>}
+                        { this.props.screenProps && <this.props.screenProps.NavigationTop ref={(ref) => { this.navigationTop = ref }}/>}
                     </View>
                     <TiltedView style={styles.containerTiledTop}/>
                     <MiddleTabbar onChange={this.changeSelected}/>
                     <View style={styles.containerBottom}>
-                        <Button onPress={this.onNav} title="Nav next"/>
-                        { this.props.screenProps && <this.props.screenProps.NavigationBottom/>}
+                        { this.props.screenProps && <this.props.screenProps.NavigationBottom ref={(ref) => { this.navigationBottom = ref }}/>}
                     </View>
                 </Animated.View>
             </View>
