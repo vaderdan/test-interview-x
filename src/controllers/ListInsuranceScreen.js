@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import globalVariables from '../config/styles.config'
+import { width, height } from '../config/dimensions.config'
 import {observer} from 'mobx-react/native'
 
 const React = require('react')
@@ -65,7 +66,7 @@ import Pagination from '../lib/Pagination'
 
 var styles = StyleSheet.create({
     containerMain: {
-        height: 250
+        height: height/2.8-15
     },
     container: {
         flex: 1
