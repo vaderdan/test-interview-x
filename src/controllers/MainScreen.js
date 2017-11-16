@@ -16,15 +16,10 @@ const {
 } = require('react-native')
 
 import { Button } from 'react-native-elements'
-import FlatList from '../lib/FlatList'
 import TiltedView from '../views/TiltedView'
 import BalloonButton from '../views/BalloonButton'
 
-import Pagination from '../lib/Pagination'
-
 import MiddleTabbar from '../views/MiddleTabbar'
-import SeparatorCell from '../views/SeparatorCell'
-import InsuranceCell from '../views/InsuranceCell'
 
 @observer class MainScreen extends React.Component {
 
@@ -67,33 +62,7 @@ import InsuranceCell from '../views/InsuranceCell'
     constructor(props) {
         super(props)
 
-        this.animatedPosition = new Animated.Value(1),
-
-        this.pagination = new Pagination()
-
-        this.pagination.delegate.fetchResults = (page, start, finish) => {
-            start()
-
-            finish(null, [{id: 'text'}, {id:'text2'}, {id:'text3'}], false)
-        }
-
-        this.pagination.delegate.fetchNextResults = (page, start, finish) => {
-            start()
-            
-            finish(null, [{id: 'text'}, {id:'text2'}], false)
-        }
-    }
-
-    componentDidMount() {
-        this.pagination.startFetchingResults()
-    }
-
-    renderItem = ({item, index}) => {
-        return <InsuranceCell/>
-    }
-
-    renderSeparator = () => {
-        return <SeparatorCell/>
+        this.animatedPosition = new Animated.Value(1)
     }
   
     render() {
@@ -102,26 +71,13 @@ import InsuranceCell from '../views/InsuranceCell'
                 <StatusBar barStyle="light-content"/>
                 <Animated.View style={[styles.container, styles.containerMain, { transform: [{translateY: this.transformInterpolate() }] }]}>
                     <View style={styles.containerTop}>
-                        <View>
-                            <Text style={styles.mainTitle}>This Month you save <Text style={styles.mainTitleBold}>$98.00</Text></Text>
-                            <Image style={styles.mainImage} resizeMode="contain" source={require('../images/front_image.png')}/>
-                        </View>
+                        { this.props.screenProps && <this.props.screenProps.NavigationTop/>}
                     </View>
                     <TiltedView style={styles.containerTiledTop}/>
                     <MiddleTabbar onChange={this.changeSelected}/>
                     <View style={styles.containerBottom}>
-                        <View style={{height: 250}}>
-                            <FlatList
-                                data={this.pagination.results.slice()}
-                                renderItem={this.renderItem}
-                                ItemSeparatorComponent={this.renderSeparator}
-                                keyExtractor={(item) => item.id}
-                                onEndReached={this.pagination.startFetchingNextResults}
-                                keyboardShouldPersistTaps='never'
-                                style={styles.container}
-                            />
-                        </View>
                         <Button onPress={this.onNav} title="Nav next"/>
+                        { this.props.screenProps && <this.props.screenProps.NavigationBottom/>}
                     </View>
                 </Animated.View>
             </View>
@@ -174,18 +130,6 @@ const styles = StyleSheet.create({
         borderTopColor: globalVariables.green, 
         height: 20,
     },
-    mainImage: {
-        height: 150,
-        width: width - 20,
-        marginBottom: 10
-    },
-    mainTitle: {
-        color: globalVariables.white,
-        marginBottom: 10
-    },
-    mainTitleBold: {
-        fontWeight: '700'
-    }
 })
 
 export default MainScreen

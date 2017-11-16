@@ -8,14 +8,12 @@ import {
     StyleSheet,
     Button
 } from 'react-native'
-import { StackNavigator } from 'react-navigation'
+import { StackNavigator, TabNavigator } from 'react-navigation'
 import LazyView from './lib/LazyView'
 
 
 import globalVariables from './config/styles.config'
 import routes from './config/routes.config'
-
-
 
 const defaultNavigationOptions = (navigation) => {
     return {
@@ -36,7 +34,19 @@ const AppNavigation = StackNavigator({
 })
 
 
+const NavigationTop = TabNavigator({
+    ..._.pick(routes, ['MyInsuranceScreen'])
+}, {
+    initialRouteName: 'MyInsuranceScreen',
+    navigationOptions: (navigation) => ({tabBarVisible: false})
+})
 
+const NavigationBottom = TabNavigator({
+    ...routes
+}, {
+    initialRouteName: 'ListInsuranceScreen',
+    navigationOptions: (navigation) => ({tabBarVisible: false})
+})
 
 
 
@@ -45,7 +55,7 @@ export default class myapp extends React.Component {
     render() {
         return (
             <LazyView style={styles.container}>
-                <AppNavigation/>
+                <AppNavigation screenProps={{NavigationTop, NavigationBottom}} />
             </LazyView>
         );
     }
