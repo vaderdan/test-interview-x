@@ -24,4 +24,5 @@ export default {
     disabled: '#dadee0',
     pink: '#F779AB',
     blue: '#8278F3',
+    blue2: '#5244ED',
 }

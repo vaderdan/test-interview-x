@@ -20,6 +20,7 @@
 		"react-native-animatable": "^1.2.4",
 		"react-native-elements": "^0.18.2",
 		"react-native-keyboard-aware-scroll-view": "^0.4.1",
+		"react-native-picker": "^4.3.0",
 		"react-native-vector-icons": "^4.4.2",
 		"react-navigation": "^1.0.0-beta.19",
 		"realm": "^2.0.6"

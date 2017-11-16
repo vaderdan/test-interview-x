@@ -11,7 +11,7 @@ const {
 
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-class InsuranceCell extends React.Component {
+class SeparatorCell extends React.Component {
 
     render() {
         return <View style={styles.separator}></View>
@@ -25,4 +25,4 @@ var styles = StyleSheet.create({
 })
 
 
-export default InsuranceCell
+export default SeparatorCell
