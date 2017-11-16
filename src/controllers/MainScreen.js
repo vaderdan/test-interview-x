@@ -25,8 +25,6 @@ import { NavigationActions, StackNavigator, TabNavigator } from 'react-navigatio
 var animatedPosition = new Animated.Value(0)
 var animatedColor = new Animated.Value(0)
 
-import Header from 'react-navigation/lib/views/Header/Header'
-
 @observer class MainScreen extends React.Component {
 
     static navigationOptions = () => ({
