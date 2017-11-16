@@ -17,7 +17,7 @@ class AddScreen extends React.Component {
 
     render() {
         return <View style={styles.containerMain}>
-            
+            <Image style={styles.mainImage} resizeMode="cover" source={require('../images/front_image2.png')}/>
         </View>
     }
 }
@@ -25,7 +25,8 @@ class AddScreen extends React.Component {
 var styles = StyleSheet.create({
     containerMain: {
         flex: 1,
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end'
     },
 })
 

@@ -22,6 +22,6 @@ export default {
     white: '#ffffff',
     transparent: 'transparent',
     disabled: '#dadee0',
-    pink: '#F478B8',
+    pink: '#F779AB',
     blue: '#8278F3',
 }

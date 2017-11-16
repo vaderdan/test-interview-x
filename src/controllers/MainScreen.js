@@ -90,7 +90,7 @@ var animatedColor = new Animated.Value(0)
     }
 
     colorInterpolate = () => {
-        return animatedColor.interpolate({inputRange: [0, 1, 2], outputRange: ['rgba(87, 217, 164, 1)', 'rgba(130, 120, 243, 1)', 'rgba(240, 120, 184, 1)'], extrapolate: 'clamp'})
+        return animatedColor.interpolate({inputRange: [0, 1, 2], outputRange: ['rgba(87, 217, 164, 1)', 'rgba(130, 120, 243, 1)', 'rgba(241, 121, 171, 1)'], extrapolate: 'clamp'})
     }
   
     render() {

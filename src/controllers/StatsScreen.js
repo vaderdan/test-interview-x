@@ -17,7 +17,7 @@ class StatsScreen extends React.Component {
 
     render() {
         return <View style={styles.containerMain}>
-            
+            <Image style={styles.mainImage} resizeMode="cover" source={require('../images/front_image3.png')}/>
         </View>
     }
 }
@@ -26,6 +26,11 @@ var styles = StyleSheet.create({
     containerMain: {
         flex: 1,
         justifyContent: 'flex-end',
+    },
+    mainImage: {
+        height: 250,
+        width: width - 20,
+        marginBottom: 10
     },
 })
 
