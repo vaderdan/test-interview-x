@@ -28,7 +28,7 @@ import DeleteButton from './DeleteButton'
             <Text style={styles.currencyText}>CHF</Text> 
             <Image style={styles.currencyImage} source={require('../images/ch.png')}/>
             <View style={styles.container}>
-                <Text numberOfLines={1} style={styles.titleText}>{accounting.formatMoney(_.toNumber(this.props.item.premium_yearly))}</Text> 
+                <Text numberOfLines={1} style={styles.titleText}>{accounting.formatMoney(_.toNumber(this.props.item.premium_yearly), '', 0)}</Text> 
                 <Text numberOfLines={1} style={styles.subtitleText}>{_.toString(this.props.item.title)}</Text> 
             </View>
             <DeleteButton onPress={() => this.props.onDelete(this.props.item)}/>
