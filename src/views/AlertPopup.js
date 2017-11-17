@@ -22,7 +22,7 @@ class AlertPopup extends React.Component {
 
     render() {
         return <View pointerEvents={this.props.visible ? 'auto': 'none'} style={[styles.container, this.props.visible && {backgroundColor: 'rgba(0, 0, 0, 0.5)'}]}>
-            {this.props.visible && <Animatable.View useNativeDriver animation="zoomIn" duration={200} style={styles.containerAnimated}>
+            {this.props.visible && <Animatable.View useNativeDriver animation="bounceIn" duration={200} easing="ease-in" style={styles.containerAnimated}>
                 <Card
                 title='Confirm?'
                 containerStyle={styles.card}
@@ -31,8 +31,8 @@ class AlertPopup extends React.Component {
                         Please confirm that you really want to delete the item 
                     </Text>
                     <View  style={styles.containerButtons}>
-                        <Button icon={{name: 'check', type: 'font-awesome'}} backgroundColor='#03A9F4' buttonStyle={{marginLeft: 0, marginRight: 0, marginBottom: 0}} containerViewStyle={{borderRadius: 4}} borderRadius={4} onPress={this.props.onYes} title='Yes' />
-                        <Button icon={{name: 'times', type: 'font-awesome'}} backgroundColor='red' buttonStyle={{marginLeft: 0, marginRight: 0, marginBottom: 0}} borderRadius={4} onPress={this.props.onNo} title='No' />
+                        <Button icon={{name: 'check', type: 'font-awesome'}} backgroundColor='#03A9F4' buttonStyle={{marginLeft: 0, marginRight: 0, marginBottom: 0}} containerViewStyle={{borderRadius: 4, flex: 1, marginLeft: 0}} borderRadius={4} onPress={this.props.onYes} title='Yes' />
+                        <Button icon={{name: 'times', type: 'font-awesome'}} backgroundColor='red' buttonStyle={{marginLeft: 0, marginRight: 0, marginBottom: 0}} containerViewStyle={{borderRadius: 4, flex: 1, marginRight: 0}} borderRadius={4} onPress={this.props.onNo} title='No' />
                     </View>
                 </Card>
             </Animatable.View>}
@@ -61,8 +61,7 @@ var styles = StyleSheet.create({
         marginBottom: 10
     },
     containerButtons: {
-        flexDirection: 'row', 
-        justifyContent: 'space-around'
+        flexDirection: 'row'
     }
 })
 
