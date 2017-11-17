@@ -36,6 +36,18 @@ class InsuranceService {
     static fetchCategories() {
         return _.map(realm.instance.objects('insurance_category'), (item) => item.toObject())
     }
+
+    static fetchInsurances(page, completion) {
+        page = _.toInteger(page)
+        completion = completion || (() => {})
+
+
+        var results = realm.instance.objects('insurance').sorted('id').slice(page, page+20)
+        results = _.map(results, (item) => item.toObject())
+        var hasMore = results.length >= 20
+
+        completion(null, results, hasMore)
+    }
 }
 
 export default InsuranceService

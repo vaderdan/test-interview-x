@@ -16,29 +16,35 @@ import SeparatorCell from '../views/SeparatorCell'
 import InsuranceCell from '../views/InsuranceCell'
 
 import Pagination from '../lib/Pagination'
+import InsuranceService from '../services/InsuranceService'
+
+
 
 @observer class ListInsuranceScreen extends React.Component {
+
+    static defaultProps = {
+        insurancePagination: new Pagination()
+    }
 
     constructor(props) {
         super(props)
 
-        this.pagination = new Pagination()
 
-        this.pagination.delegate.fetchResults = (page, start, finish) => {
+        this.props.insurancePagination.delegate.fetchResults = (page, start, finish) => {
             start()
 
-            finish(null, [{id: 'text'}, {id:'text2'}, {id:'text3'}], false)
+            InsuranceService.fetchInsurances(page, finish)
         }
 
-        this.pagination.delegate.fetchNextResults = (page, start, finish) => {
+        this.props.insurancePagination.delegate.fetchNextResults = (page, start, finish) => {
             start()
             
-            finish(null, [{id: 'text'}, {id:'text2'}], false)
+            InsuranceService.fetchInsurances(page, finish)
         }
     }
 
     componentDidMount() {
-        this.pagination.startFetchingResults()
+        this.props.insurancePagination.startFetchingResults()
     }
 
     renderItem = ({item, index}) => {
@@ -52,11 +58,11 @@ import Pagination from '../lib/Pagination'
     render() {
         return <View style={styles.containerMain}>
             <FlatList
-                data={this.pagination.results.slice()}
+                data={this.props.insurancePagination.results.slice()}
                 renderItem={this.renderItem}
                 ItemSeparatorComponent={this.renderSeparator}
                 keyExtractor={(item) => item.id}
-                onEndReached={this.pagination.startFetchingNextResults}
+                onEndReached={this.props.insurancePagination.startFetchingNextResults}
                 keyboardShouldPersistTaps='never'
                 style={styles.container}
             />

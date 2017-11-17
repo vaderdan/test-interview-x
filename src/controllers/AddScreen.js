@@ -1,6 +1,8 @@
 import _ from 'lodash'
 import globalVariables from '../config/styles.config'
 import { width, height } from '../config/dimensions.config'
+import realm from '../config/realm.config'
+import moment from 'moment'
 
 const React = require('react')
 const {
@@ -25,7 +27,7 @@ class AddScreen extends React.Component {
 
     state = {
         title: '',
-        premium: '',
+        premium: null,
         category: null,
         categoryIndex: -1
     }
@@ -57,6 +59,8 @@ class AddScreen extends React.Component {
     onDone = () => {
         Keyboard.dismiss()
 
+
+        //error validation
         var errors = ''
         
         errors += (!this.isValid('title') ? 'Enter insurance title\n' : '')
@@ -65,6 +69,21 @@ class AddScreen extends React.Component {
         if(errors != '') {
             return Alert.alert('Error', 'Please fix form errors: \n\n'+errors)
         }
+
+        //save in database
+
+        realm.instance.write(() => {
+            var category = this.categories[this.state.categoryIndex]
+            realm.instance.create('insurance', {id: this.randomId(), title: this.state.title, premium: _.toNumber(this.state.premium), category:category }, true)
+        })
+
+        this.resetForm()
+
+        this.props.insurancePagination.startFetchingResults()
+    }
+
+    randomId = () => {
+        return _.toString(_.random(0, 100000)+moment().unix())
     }
 
     isValid = (key) => {
@@ -73,6 +92,15 @@ class AddScreen extends React.Component {
             case 'premium': return validator.isFloat(this.state.premium, {min: 1})
             default: return false;
         }
+    }
+
+    resetForm = () => {
+        this.setState({
+            title: '',
+            premium: null,
+            category: null,
+            categoryIndex: -1
+        })
     }
 
 

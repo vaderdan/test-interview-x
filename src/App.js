@@ -10,10 +10,19 @@ import {
 } from 'react-native'
 import { StackNavigator, TabNavigator } from 'react-navigation'
 import LazyView from './lib/LazyView'
+import Pagination from './lib/Pagination'
+import hocPropsInjectComponent from './hocs/hocPropsInjectComponent'
+import hocStopComponent from './hocs/hocStopComponent'
 
-
+import routes_ from './config/routes.config'
 import globalVariables from './config/styles.config'
-import routes from './config/routes.config'
+
+var insurancePagination = new Pagination()
+var routes = routes_
+routes = _.mapValues(routes, (route) => { return { ...route, screen: hocStopComponent(hocPropsInjectComponent({insurancePagination: insurancePagination}, route.screen))} })
+
+
+
 
 const defaultNavigationOptions = (navigation) => {
     return {
