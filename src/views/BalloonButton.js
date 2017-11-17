@@ -30,7 +30,7 @@ class BalloonButton extends React.Component {
     render() {
         var backgroundColor = this.props.disabled ? this.props.disabledColor : this.props.backgroundColor
 
-        return <Animatable.View useNativeDriver transition="translateY" style={[{position: 'relative', alignItems: 'center'}, {transform: [{translateY: !this.props.disabled ? 30 : 0 }]}, this.props.style]}>
+        return <Animatable.View useNativeDriver transition="translateY" style={[{position: 'relative', alignItems: 'center', paddingTop: 16}, {transform: [{translateY: !this.props.disabled ? 30 : 0 }]}, this.props.style]}>
             <View style={[styles.ballon1, {backgroundColor: backgroundColor}]}></View>
             <View style={[styles.ballon2, {backgroundColor: backgroundColor}]}></View>
             <TouchableHighlight activeOpacity={0.5} underlayColor={backgroundColor} style={[styles.buttonContainer, {backgroundColor: backgroundColor}]} onPress={this.props.onPress}>
@@ -58,10 +58,10 @@ var styles = StyleSheet.create({
         backgroundColor: globalVariables.green
     },
     ballon1: {
-        position:'absolute', width: 8, height: 8, borderRadius: 8, top: -12, left: radius/2, backgroundColor: globalVariables.green
+        position:'absolute', width: 8, height: 8, borderRadius: 8, top: 6, left: radius/2, backgroundColor: globalVariables.green
     },
     ballon2: {
-        position:'absolute', width: 4, height: 4, borderRadius: 4, top: -20, left: radius/2+5, backgroundColor: globalVariables.green
+        position:'absolute', width: 4, height: 4, borderRadius: 4, top: 0, left: radius/2+5, backgroundColor: globalVariables.green
     },
     buttonText: {
         color: globalVariables.white,
