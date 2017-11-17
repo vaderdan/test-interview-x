@@ -23,7 +23,8 @@
 		"react-native-picker": "^4.3.0",
 		"react-native-vector-icons": "^4.4.2",
 		"react-navigation": "^1.0.0-beta.19",
-		"realm": "^2.0.6"
+		"realm": "^2.0.6",
+		"validator": "^9.1.1"
 	},
 	"devDependencies": {
 		"babel-jest": "21.2.0",

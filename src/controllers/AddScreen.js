@@ -13,6 +13,8 @@ const {
     Alert
 } = require('react-native')
 
+import validator from 'validator'
+
 import PremiumCategoryButton from '../views/PremiumCategoryButton'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { FormLabel, FormInput, Button, Icon } from 'react-native-elements'
@@ -54,8 +56,24 @@ class AddScreen extends React.Component {
 
     onDone = () => {
         Keyboard.dismiss()
+
+        var errors = ''
+        
+        errors += (!this.isValid('title') ? 'Enter insurance title\n' : '')
+        errors += (!this.isValid('premium') ? 'Enter positive premium amount\n' : '')
+        
+        if(errors != '') {
+            return Alert.alert('Error', 'Please fix form errors: \n\n'+errors)
+        }
     }
 
+    isValid = (key) => {
+        switch (key) {
+            case 'title': return validator.isLength(this.state.title, {min: 1})
+            case 'premium': return validator.isFloat(this.state.premium, {min: 1})
+            default: return false;
+        }
+    }
 
 
     render() {
@@ -101,7 +119,7 @@ class AddScreen extends React.Component {
                                 <PremiumCategoryButton title={categoryTitle} onPress={this.onSelectCategory}/>
                             </View>
                         </View>
-                        <Button borderRadius={4} icon={{name: 'check', type: 'font-awesome'}} buttonStyle={styles.formButton} backgroundColor={globalVariables.background} onPress={this.loginAction} title='Add premium' />
+                        <Button borderRadius={4} icon={{name: 'check', type: 'font-awesome'}} buttonStyle={styles.formButton} backgroundColor={globalVariables.background} onPress={this.onDone} title='Add premium' />
                     </View>
                 </KeyboardAwareScrollView>
                 <View style={styles.containerImage}>
