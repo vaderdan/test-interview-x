@@ -14,6 +14,7 @@ const {
 import FlatList from '../lib/FlatList'
 import SeparatorCell from '../views/SeparatorCell'
 import InsuranceCell from '../views/InsuranceCell'
+import EmptyStateCell from '../views/EmptyStateCell'
 
 import Pagination from '../lib/Pagination'
 import InsuranceService from '../services/InsuranceService'
@@ -55,12 +56,17 @@ import InsuranceService from '../services/InsuranceService'
         return <SeparatorCell/>
     }
 
+    renderEmpty = () => {
+        return <EmptyStateCell/>
+    }
+
     render() {
         return <View style={styles.containerMain}>
             <FlatList
                 data={this.props.insurancePagination.results.slice()}
                 renderItem={this.renderItem}
                 ItemSeparatorComponent={this.renderSeparator}
+                ListEmptyComponent={this.renderEmpty}
                 keyExtractor={(item) => item.id}
                 onEndReached={this.props.insurancePagination.startFetchingNextResults}
                 keyboardShouldPersistTaps='never'
