@@ -32,6 +32,8 @@ class AddScreen extends React.Component {
         categoryIndex: -1
     }
 
+    categories = InsuranceService.fetchCategories()
+
     onSelectCategory = () => {
         this.categories = _.isEmpty(this.categories) ? InsuranceService.fetchCategories() : this.categories
         var categoriesTitle = _.map(this.categories, (category) => category.title)
@@ -88,8 +90,8 @@ class AddScreen extends React.Component {
 
     isValid = (key) => {
         switch (key) {
-            case 'title': return validator.isLength(this.state.title, {min: 1})
-            case 'premium': return validator.isFloat(this.state.premium, {min: 1})
+            case 'title': return validator.isLength(_.toString(this.state.title), {min: 1})
+            case 'premium': return validator.isFloat(_.toString(this.state.premium), {min: 1})
             default: return false;
         }
     }
