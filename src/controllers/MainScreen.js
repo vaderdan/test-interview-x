@@ -21,6 +21,7 @@ const {
 import TiltedView from '../views/TiltedView'
 import BalloonButton from '../views/BalloonButton'
 import MiddleTabbar from '../views/MiddleTabbar'
+import AlertPopup from '../views/AlertPopup'
 
 import InsuranceService from '../services/InsuranceService'
 
@@ -37,6 +38,11 @@ var animatedColor = new Animated.Value(0)
         headerTitleStyle: headerStyles.headerTitleStyle,
         headerTintColor: globalVariables.white
     })
+
+    state = {
+        alertVisible: false,
+        item: null
+    }
 
     componentDidMount() {
         InsuranceService.refreshCategories()
@@ -102,17 +108,22 @@ var animatedColor = new Animated.Value(0)
     }
 
     onDelete = (item) => {
-        Alert.alert('Confirm', 'Are you sure you want to remove it?', [
-            {text: 'Yes', onPress: () => {
-                realm.instance.write(() => {
-                    var insurance = realm.instance.objectForPrimaryKey('insurance', _.toPlainObject(item).id)
-                    realm.instance.delete(insurance)
-                })
+        this.setState({alertVisible: true, item: item})
+    }
 
-                this.props.insurancePagination.startFetchingResults()
-            }},
-            {text: 'No', style: 'cancel'},
-        ], { cancelable: true })
+    onDeleteConfirm = () => {
+        this.setState({alertVisible: false, item: null})
+
+        realm.instance.write(() => {
+            var insurance = realm.instance.objectForPrimaryKey('insurance', _.toPlainObject(this.state.item).id)
+            realm.instance.delete(insurance)
+        })
+
+        this.props.insurancePagination.startFetchingResults()
+    }
+
+    onDeleteCancel = () => {
+        this.setState({alertVisible: false, item: null})
     }
   
     render() {
@@ -129,6 +140,7 @@ var animatedColor = new Animated.Value(0)
                         { this.props.screenProps && <this.props.screenProps.NavigationBottom screenProps={{onDelete:this.onDelete}} ref={(ref) => { this.navigationBottom = ref }}/>}
                     </View>
                 </Animated.View>
+                <AlertPopup visible={this.state.alertVisible} onYes={this.onDeleteConfirm} onNo={this.onDeleteCancel}/>
             </View>
         )
     }
