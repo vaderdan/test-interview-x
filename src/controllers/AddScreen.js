@@ -28,17 +28,21 @@ class AddScreen extends React.Component {
         categoryIndex: -1
     }
 
-    categories = InsuranceService.fetchCategories()
-
     onSelectCategory = () => {
+        this.categories = _.isEmpty(this.categories) ? InsuranceService.fetchCategories() : this.categories
+        var categoriesTitle = _.map(this.categories, (category) => category.title)
+        categoriesTitle = _.isEmpty(categoriesTitle) ? ['No categories'] : categoriesTitle
+
         Picker.init({
-            pickerData: _.map(this.categories, (category) => category.title),
+            pickerData: categoriesTitle,
             selectedValue: [this.state.category],
             pickerTitleText: 'Select category',
             pickerToolBarFontSize: 16,
             pickerFontSize: 16,
             onPickerConfirm: (pickedValue, pickedIndex) => {
-                this.setState({category: _.first(_.toArray(pickedValue)), categoryIndex: _.first(_.toArray(pickedIndex))})
+                if(!_.isEmpty(this.categories)) {
+                    this.setState({category: _.first(_.toArray(pickedValue)), categoryIndex: _.first(_.toArray(pickedIndex))})
+                }
             }
         })
         Picker.show()
