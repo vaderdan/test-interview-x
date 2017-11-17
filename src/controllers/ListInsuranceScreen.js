@@ -23,13 +23,13 @@ import InsuranceService from '../services/InsuranceService'
 @observer class ListInsuranceScreen extends React.Component {
 
     static defaultProps = {
-        insurancePagination: new Pagination()
+        insurancePagination: new Pagination(),
     }
 
     constructor(props) {
         super(props)
 
-
+        
         this.props.insurancePagination.delegate.fetchResults = (page, start, finish) => {
             start()
 
@@ -48,7 +48,7 @@ import InsuranceService from '../services/InsuranceService'
     }
 
     renderItem = ({item, index}) => {
-        return <InsuranceCell item={item}/>
+        return <InsuranceCell item={item} onDelete={this.props.screenProps.onDelete}/>
     }
 
     renderSeparator = () => {

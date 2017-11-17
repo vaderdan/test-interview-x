@@ -19,7 +19,8 @@ import DeleteButton from './DeleteButton'
 @observer class InsuranceCell extends React.Component {
 
     static defaultProps = {
-        item: {}
+        item: {},
+        onDelete: () => {}
     }
 
     render() {
@@ -30,7 +31,7 @@ import DeleteButton from './DeleteButton'
                 <Text numberOfLines={1} style={styles.titleText}>{accounting.formatMoney(_.toNumber(this.props.item.premium_yearly))}</Text> 
                 <Text numberOfLines={1} style={styles.subtitleText}>{_.toString(this.props.item.title)}</Text> 
             </View>
-            <DeleteButton/>
+            <DeleteButton onPress={() => this.props.onDelete(this.props.item)}/>
         </View>
     }
 }

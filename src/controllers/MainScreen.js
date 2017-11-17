@@ -1,6 +1,8 @@
 import globalVariables from '../config/styles.config'
 import { width, height } from '../config/dimensions.config'
 import {observer} from 'mobx-react/native'
+import realm from '../config/realm.config'
+import _ from 'lodash'
 
 const React = require('react')
 const {
@@ -12,7 +14,8 @@ const {
     Text,
     StatusBar,
     TextInput,
-    Animated
+    Animated,
+    Alert
 } = require('react-native')
 
 import TiltedView from '../views/TiltedView'
@@ -45,7 +48,7 @@ var animatedColor = new Animated.Value(0)
             this.navigationTop.dispatch(navigateAction)   
             
             let navigateAction2 = NavigationActions.navigate({ routeName: 'ListInsuranceScreen' })
-            this.navigationBottom.dispatch(navigateAction2)   
+            this.navigationBottom.dispatch(navigateAction2)
 
             Animated.timing(
                 animatedPosition,
@@ -61,7 +64,7 @@ var animatedColor = new Animated.Value(0)
             this.navigationTop.dispatch(navigateAction)   
             
             let navigateAction2 = NavigationActions.navigate({ routeName: 'DefaultScreen' })
-            this.navigationBottom.dispatch(navigateAction2)   
+            this.navigationBottom.dispatch(navigateAction2) 
 
             Animated.timing(
                 animatedPosition,
@@ -97,6 +100,20 @@ var animatedColor = new Animated.Value(0)
     colorInterpolate = () => {
         return animatedColor.interpolate({inputRange: [0, 1, 2], outputRange: ['rgba(87, 217, 164, 1)', 'rgba(241, 121, 171, 1)', 'rgba(130, 120, 243, 1)'], extrapolate: 'clamp'})
     }
+
+    onDelete = (item) => {
+        Alert.alert('Confirm', 'Are you sure you want to remove it?', [
+            {text: 'Yes', onPress: () => {
+                realm.instance.write(() => {
+                    var insurance = realm.instance.objectForPrimaryKey('insurance', _.toPlainObject(item).id)
+                    realm.instance.delete(insurance)
+                })
+
+                this.props.insurancePagination.startFetchingResults()
+            }},
+            {text: 'No', style: 'cancel'},
+        ], { cancelable: true })
+    }
   
     render() {
         return (
@@ -109,7 +126,7 @@ var animatedColor = new Animated.Value(0)
                     <TiltedView style={[styles.containerTiledTop, {borderTopColor: this.colorInterpolate()}]}/>
                     <MiddleTabbar onChange={this.changeSelected}/>
                     <View style={styles.containerBottom}>
-                        { this.props.screenProps && <this.props.screenProps.NavigationBottom ref={(ref) => { this.navigationBottom = ref }}/>}
+                        { this.props.screenProps && <this.props.screenProps.NavigationBottom screenProps={{onDelete:this.onDelete}} ref={(ref) => { this.navigationBottom = ref }}/>}
                     </View>
                 </Animated.View>
             </View>
