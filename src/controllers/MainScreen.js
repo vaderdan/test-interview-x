@@ -15,7 +15,7 @@ const {
     StatusBar,
     TextInput,
     Animated,
-    Alert
+    Platform
 } = require('react-native')
 
 import TiltedView from '../views/TiltedView'
@@ -128,7 +128,7 @@ var animatedColor = new Animated.Value(0)
   
     render() {
         return (
-            <View style={styles.containerOuter}>
+            <View style={[styles.containerOuter, Platform.OS == 'android' && { marginTop: -56, paddingTop: 56 }]}>
                 <StatusBar barStyle="light-content"/>
                 <Animated.View style={[styles.container, styles.containerMain, { transform: [{translateY: this.transformInterpolate() }] }]}>
                     <Animated.View style={[styles.containerTop, {backgroundColor: this.colorInterpolate()}]}>
@@ -167,8 +167,6 @@ const styles = StyleSheet.create({
         flex: 1
     },
     containerOuter: {
-        marginTop: -56,
-        paddingTop: 56,
         flex: 1,
         backgroundColor: globalVariables.green,
     },
