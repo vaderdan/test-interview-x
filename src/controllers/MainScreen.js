@@ -167,15 +167,19 @@ const styles = StyleSheet.create({
         flex: 1
     },
     containerOuter: {
+        marginTop: -56,
+        paddingTop: 56,
         flex: 1,
         backgroundColor: globalVariables.green,
     },
     containerMain: {
         backgroundColor: globalVariables.background,
+        marginTop: -300,
+        marginBottom: -300,
     },
     containerTop: {
         height: height/2.8+300,
-        marginTop: -300,
+        
         justifyContent: 'flex-end',
         alignItems: 'stretch',
         backgroundColor: globalVariables.green,
@@ -184,7 +188,7 @@ const styles = StyleSheet.create({
     containerBottom: {
         flex: 1,
         backgroundColor: globalVariables.background,
-        marginBottom: -300,
+        
         justifyContent: 'flex-start',
     },
     containerTiledTop: {

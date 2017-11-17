@@ -47,14 +47,18 @@ const NavigationTop = TabNavigator({
     ..._.pick(routes, ['MyInsuranceScreen', 'AddScreen', 'StatsScreen'])
 }, {
     initialRouteName: 'MyInsuranceScreen',
-    navigationOptions: (navigation) => ({tabBarVisible: false})
+    navigationOptions: (navigation) => ({tabBarVisible: false}),
+    animationEnabled: false,
+    swipeEnabled: false
 })
 
 const NavigationBottom = TabNavigator({
     ..._.pick(routes, ['ListInsuranceScreen', 'DefaultScreen', 'DefaultEmptyScreen'])
 }, {
     initialRouteName: 'ListInsuranceScreen',
-    navigationOptions: (navigation) => ({tabBarVisible: false})
+    navigationOptions: (navigation) => ({tabBarVisible: false}),
+    animationEnabled: false,
+    swipeEnabled: false
 })
 
 
