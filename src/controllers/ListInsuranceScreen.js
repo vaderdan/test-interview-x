@@ -48,7 +48,7 @@ import InsuranceService from '../services/InsuranceService'
     }
 
     renderItem = ({item, index}) => {
-        return <InsuranceCell/>
+        return <InsuranceCell item={item}/>
     }
 
     renderSeparator = () => {

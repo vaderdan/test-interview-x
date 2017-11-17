@@ -1,5 +1,7 @@
 import _ from 'lodash'
 import globalVariables from '../config/styles.config'
+import {observer} from 'mobx-react/native'
+import accounting from 'accounting'
 
 const React = require('react')
 const {
@@ -14,17 +16,19 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 import DeleteButton from './DeleteButton'
 
-class InsuranceCell extends React.Component {
+@observer class InsuranceCell extends React.Component {
 
-    
+    static defaultProps = {
+        item: {}
+    }
 
     render() {
         return <View style={styles.cellContainer}>
             <Text style={styles.currencyText}>CHF</Text> 
             <Image style={styles.currencyImage} source={require('../images/ch.png')}/>
             <View style={styles.container}>
-                <Text style={styles.titleText}>100,00</Text> 
-                <Text style={styles.subtitleText}>Yearly premium 1</Text> 
+                <Text numberOfLines={1} style={styles.titleText}>{accounting.formatMoney(_.toNumber(this.props.item.premium_yearly))}</Text> 
+                <Text numberOfLines={1} style={styles.subtitleText}>{_.toString(this.props.item.title)}</Text> 
             </View>
             <DeleteButton/>
         </View>

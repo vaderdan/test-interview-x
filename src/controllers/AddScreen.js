@@ -76,7 +76,7 @@ class AddScreen extends React.Component {
 
         realm.instance.write(() => {
             var category = this.categories[this.state.categoryIndex]
-            realm.instance.create('insurance', {id: this.randomId(), title: this.state.title, premium: _.toNumber(this.state.premium), category:category }, true)
+            realm.instance.create('insurance', {id: this.randomId(), title: this.state.title, premium_yearly: _.toNumber(this.state.premium), category:category }, true)
         })
 
         this.resetForm()
@@ -85,7 +85,7 @@ class AddScreen extends React.Component {
     }
 
     randomId = () => {
-        return _.toString(_.random(0, 100000)+moment().unix())
+        return _.toString(moment().unix()+'_'+_.random(0, 100000))
     }
 
     isValid = (key) => {
