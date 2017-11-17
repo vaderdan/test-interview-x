@@ -4,13 +4,13 @@ import _ from 'lodash'
 
 
 
-class Insurance extends Realm.Object {
+class InsuranceCategory extends Realm.Object {
     static schema = {
-        name: 'insurance',
+        name: 'insurance_category',
+        primaryKey: 'pageid',
         properties: {
+            pageid: { type: 'int', optional: true}, 
             title: { type: 'string', optional: true},
-            premium_yearly: { type: 'float', default: 0},
-            category: { type: 'insurance_category', optional: true},
         }
     }
 
@@ -20,4 +20,4 @@ class Insurance extends Realm.Object {
 }
 
 
-export default Insurance
+export default InsuranceCategory

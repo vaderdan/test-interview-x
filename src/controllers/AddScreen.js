@@ -17,24 +17,28 @@ import PremiumCategoryButton from '../views/PremiumCategoryButton'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { FormLabel, FormInput, Button, Icon } from 'react-native-elements'
 import Picker from 'react-native-picker'
-
+import InsuranceService from '../services/InsuranceService'
 
 class AddScreen extends React.Component {
 
     state = {
         title: '',
         premium: '',
-        category: null
+        category: null,
+        categoryIndex: -1
     }
+
+    categories = InsuranceService.fetchCategories()
 
     onSelectCategory = () => {
         Picker.init({
-            pickerData: [1,2,3,4],
+            pickerData: _.map(this.categories, (category) => category.title),
             selectedValue: [this.state.category],
+            pickerTitleText: 'Select category',
             pickerToolBarFontSize: 16,
             pickerFontSize: 16,
             onPickerConfirm: (pickedValue, pickedIndex) => {
-                this.setState({category: _.first(pickedValue)})
+                this.setState({category: _.first(_.toArray(pickedValue)), categoryIndex: _.first(_.toArray(pickedIndex))})
             }
         })
         Picker.show()
@@ -51,6 +55,9 @@ class AddScreen extends React.Component {
 
 
     render() {
+        var categoryTitle = !_.isNil(this.state.category) ? 'Selected: '+this.state.category : 'Select category'
+
+
         return <View style={styles.containerMain}>
             <View style={styles.formContainer}>
                 <KeyboardAwareScrollView style={styles.container} resetScrollToCoords={{ x: 0, y: 0 }} scrollEnabled={true} keyboardOpeningTime={0} extraScrollHeight={-100} enableOnAndroid>
@@ -87,7 +94,7 @@ class AddScreen extends React.Component {
                             <FormLabel labelStyle={styles.formLabel}>category</FormLabel>
                             <View style={[styles.formRow, {marginBottom: 20}]}>
                                 <Icon containerStyle={styles.formIcon} color={globalVariables.black} type='font-awesome' name='list' size={15} />
-                                <PremiumCategoryButton title={this.state.category || "Select category"} onPress={this.onSelectCategory}/>
+                                <PremiumCategoryButton title={categoryTitle} onPress={this.onSelectCategory}/>
                             </View>
                         </View>
                         <Button borderRadius={4} icon={{name: 'check', type: 'font-awesome'}} buttonStyle={styles.formButton} backgroundColor={globalVariables.background} onPress={this.loginAction} title='Add premium' />

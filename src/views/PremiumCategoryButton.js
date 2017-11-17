@@ -19,7 +19,7 @@ class SeparatorCell extends React.Component {
     }
 
     render() {
-        return <TouchableHighlight underlayColor={globalVariables.blue} style={styles.buttonContainer} onPress={this.props.onPress}><Text style={styles.button}>{this.props.title}</Text></TouchableHighlight>
+        return <TouchableHighlight underlayColor={globalVariables.blue} style={styles.buttonContainer} onPress={this.props.onPress}><Text numberOfLines={1} style={styles.button}>{this.props.title}</Text></TouchableHighlight>
     }
 }
 
