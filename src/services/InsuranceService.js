@@ -48,6 +48,10 @@ class InsuranceService {
 
         completion(null, results, hasMore)
     }
+
+    static sumInsurances() {
+        return _.toString(realm.instance.objects('insurance').sum('premium_yearly'))
+    }
 }
 
 export default InsuranceService
