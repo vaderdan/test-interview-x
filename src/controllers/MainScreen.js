@@ -17,8 +17,9 @@ const {
 
 import TiltedView from '../views/TiltedView'
 import BalloonButton from '../views/BalloonButton'
-
 import MiddleTabbar from '../views/MiddleTabbar'
+
+import InsuranceService from '../services/InsuranceService'
 
 import { NavigationActions, StackNavigator, TabNavigator } from 'react-navigation'
 
@@ -33,6 +34,10 @@ var animatedColor = new Animated.Value(0)
         headerTitleStyle: headerStyles.headerTitleStyle,
         headerTintColor: globalVariables.white
     })
+
+    componentDidMount() {
+        InsuranceService.refreshCategories()
+    }
 
     changeSelected = (selected) => {
         if (selected == 0) {
