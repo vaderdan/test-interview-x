@@ -49,7 +49,8 @@ const NavigationTop = TabNavigator({
     initialRouteName: 'MyInsuranceScreen',
     navigationOptions: (navigation) => ({tabBarVisible: false}),
     animationEnabled: false,
-    swipeEnabled: false
+    swipeEnabled: false,
+    backBehavior: 'none'
 })
 
 const NavigationBottom = TabNavigator({
@@ -58,7 +59,8 @@ const NavigationBottom = TabNavigator({
     initialRouteName: 'ListInsuranceScreen',
     navigationOptions: (navigation) => ({tabBarVisible: false}),
     animationEnabled: false,
-    swipeEnabled: false
+    swipeEnabled: false,
+    backBehavior: 'none'
 })
 
 

@@ -22,6 +22,7 @@ import TiltedView from '../views/TiltedView'
 import BalloonButton from '../views/BalloonButton'
 import MiddleTabbar from '../views/MiddleTabbar'
 import AlertPopup from '../views/AlertPopup'
+import AppStateHelper from '../views/AppStateHelper'
 
 import InsuranceService from '../services/InsuranceService'
 
@@ -41,11 +42,25 @@ var animatedColor = new Animated.Value(0)
 
     state = {
         alertVisible: false,
-        item: null
+        item: null,
+        selected: 0
     }
 
     componentDidMount() {
         InsuranceService.refreshCategories()
+    }
+
+    becomeActive = () => {
+        let navigateAction = NavigationActions.navigate({ routeName: 'MyInsuranceScreen' })
+        this.navigationTop.dispatch(navigateAction)   
+        
+        let navigateAction2 = NavigationActions.navigate({ routeName: 'ListInsuranceScreen' })
+        this.navigationBottom.dispatch(navigateAction2)
+
+        animatedPosition.setValue(0)
+        animatedColor.setValue(0)
+
+        setTimeout(() => this.setState({selected:0}), 0)
     }
 
     changeSelected = (selected) => {
@@ -60,10 +75,8 @@ var animatedColor = new Animated.Value(0)
                 animatedPosition,
                 { toValue: 0, duration: 200, useNativeDriver: true },
             ).start()
-            Animated.timing(
-                animatedColor,
-                { toValue: 0, duration: 200, useNativeDriver: false },
-            ).start()
+
+            animatedColor.setValue(0)
         }
         else if (selected == 1) {
             let navigateAction = NavigationActions.navigate({ routeName: 'StatsScreen' })
@@ -76,10 +89,8 @@ var animatedColor = new Animated.Value(0)
                 animatedPosition,
                 { toValue: 1, duration: 200, useNativeDriver: true },
             ).start()
-            Animated.timing(
-                animatedColor,
-                { toValue: 1, duration: 200, useNativeDriver: false },
-            ).start()
+
+            animatedColor.setValue(1)
         }
         else {
             let navigateAction = NavigationActions.navigate({ routeName: 'AddScreen' })
@@ -92,11 +103,11 @@ var animatedColor = new Animated.Value(0)
                 animatedPosition,
                 { toValue: 2, duration: 200, useNativeDriver: true },
             ).start()
-            Animated.timing(
-                animatedColor,
-                { toValue: 2, duration: 200, useNativeDriver: false },
-            ).start()
+
+            animatedColor.setValue(2)
         }
+
+        setTimeout(() => this.setState({selected}), 0)
     }
 
     transformInterpolate = () => {
@@ -130,12 +141,13 @@ var animatedColor = new Animated.Value(0)
         return (
             <View style={[styles.containerOuter, Platform.OS == 'android' && { marginTop: -56, paddingTop: 56 }]}>
                 <StatusBar barStyle="light-content"/>
+                <AppStateHelper becomeActive={this.becomeActive}/>
                 <Animated.View style={[styles.container, styles.containerMain, { transform: [{translateY: this.transformInterpolate() }] }]}>
                     <Animated.View style={[styles.containerTop, {backgroundColor: this.colorInterpolate()}]}>
                         { this.props.screenProps && <this.props.screenProps.NavigationTop ref={(ref) => { this.navigationTop = ref }}/>}
                     </Animated.View>
                     <TiltedView style={[styles.containerTiledTop, {borderTopColor: this.colorInterpolate()}]}/>
-                    <MiddleTabbar onChange={this.changeSelected}/>
+                    <MiddleTabbar selected={this.state.selected} onChange={ this.changeSelected }/>
                     <View style={styles.containerBottom}>
                         { this.props.screenProps && <this.props.screenProps.NavigationBottom screenProps={{onDelete:this.onDelete}} ref={(ref) => { this.navigationBottom = ref }}/>}
                     </View>
