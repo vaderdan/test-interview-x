@@ -124,21 +124,21 @@ class AddScreen extends React.Component {
                                     placeholder='your premium title' 
                                     value={this.state.title}
                                     onChangeText={(text) => { this.setState({title: text}) }}
-                                    blurOnSubmit={false} autoCorrect={false} autoCapitalize='none' containerStyle={styles.formInput} inputStyle={styles.formInputTitle} returnKeyType='done' keyboardType='email-address' 
+                                    blurOnSubmit={false} autoCorrect={false} autoCapitalize='none' containerStyle={styles.formInput} inputStyle={styles.formInputTitle} returnKeyType='done' keyboardType='email-address' underlineColorAndroid='transparent'
                                     />
                             </View>
                         </View>
                         <View style={styles.formBlock}>
                             <FormLabel labelStyle={styles.formLabel}>yearly premium (in chf)</FormLabel>
-                            <View style={[styles.formRow, {marginTop: 20, marginBottom: 20}]}>
-                                <Icon containerStyle={[styles.formIcon, {marginTop: 10}]} color={globalVariables.black} type='font-awesome' name='usd' size={15} />
+                            <View style={styles.formRowPremium}>
+                                <Icon containerStyle={styles.formIcon} color={globalVariables.black} type='font-awesome' name='usd' size={15} />
                                 <FormInput 
                                     onFocus={this.onFocus}
                                     onSubmitEditing={() => this.onDone() }
                                     placeholder='0' 
                                     value={this.state.premium}
                                     onChangeText={(text) => { this.setState({premium: text}) }}
-                                    blurOnSubmit={false} autoCorrect={false} autoCapitalize='none' containerStyle={styles.formInput} inputStyle={styles.formInputPremium} returnKeyType='done' keyboardType='decimal-pad' 
+                                    blurOnSubmit={false} autoCorrect={false} autoCapitalize='none' containerStyle={styles.formInputPremium} inputStyle={styles.formInputPremiumTitle} returnKeyType='done' keyboardType='decimal-pad' underlineColorAndroid='transparent'
                                     />
                             </View>
                         </View>
@@ -182,19 +182,25 @@ var styles = StyleSheet.create({
         color: globalVariables.black, marginLeft: 10
     },
     formInput: {
-        flex: 1, borderBottomWidth: 0, height: 36
+        flex: 1, borderBottomWidth: 0, height: 36, justifyContent: 'center'
     },
     formInputTitle: {
         color:globalVariables.white
     },
-    formInputPremium: {
-        width: width-100 ,color:globalVariables.white, fontSize: 40, textAlign: 'right'
-    },
     formRow: {
-        flexDirection: 'row', height: 30
+        flexDirection: 'row', height: 36
+    },
+    formInputPremium: {
+        height: 60, borderBottomWidth: 0, height: 36, justifyContent: 'center'
+    },
+    formRowPremium: {
+        flexDirection: 'row', height: 60, alignItems: 'center'
+    },
+    formInputPremiumTitle: {
+        width: width-100 ,color:globalVariables.white, fontSize: 35, height: 60, textAlign: 'right'
     },
     formIcon: {
-        paddingLeft: 10, paddingTop: 5, margin: 0, width: 33,
+        paddingLeft: 10, paddingTop: 0, margin: 0, width: 33,
     },
     formButton: {
         marginBottom: 8
