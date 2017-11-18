@@ -16,9 +16,10 @@ class EmptyStateCell extends React.Component {
 
     render() {
         return <View style={styles.container}>
+            <Icon name="exclamation-circle" size={30} color={globalVariables.white} style={styles.icon} />
             <Text style={[styles.titleText, styles.titleTextBold]}>No items found</Text>
             <Text style={styles.titleText}>You can go to add more from Add Screen</Text>
-            <Icon name="exclamation-circle" size={30} color={globalVariables.white} style={styles.icon} />
+            
         </View>
     }
 }
@@ -39,7 +40,7 @@ var styles = StyleSheet.create({
         fontWeight: '700'
     },
     icon: {
-        marginTop: 20,
+        marginBottom: 20,
         opacity: 0.5
     }
 })
