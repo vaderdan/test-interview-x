@@ -60,7 +60,7 @@ class AddScreen extends React.Component {
 
     onDone = () => {
         Keyboard.dismiss()
-
+        
 
         //error validation
         var errors = ''
@@ -124,7 +124,7 @@ class AddScreen extends React.Component {
                                     placeholder='your premium title' 
                                     value={this.state.title}
                                     onChangeText={(text) => { this.setState({title: text}) }}
-                                    blurOnSubmit={false} autoCorrect={false} autoCapitalize='none' containerStyle={styles.formInput} inputStyle={styles.formInputTitle} returnKeyType='done' keyboardType='email-address' underlineColorAndroid='transparent'
+                                    autoCorrect={false} autoCapitalize='none' containerStyle={styles.formInput} inputStyle={styles.formInputTitle} returnKeyType='done' keyboardType='email-address' underlineColorAndroid='transparent'
                                     />
                             </View>
                         </View>
@@ -138,7 +138,7 @@ class AddScreen extends React.Component {
                                     placeholder='0' 
                                     value={this.state.premium}
                                     onChangeText={(text) => { this.setState({premium: text}) }}
-                                    blurOnSubmit={false} autoCorrect={false} autoCapitalize='none' containerStyle={styles.formInputPremium} inputStyle={styles.formInputPremiumTitle} returnKeyType='done' keyboardType='decimal-pad' underlineColorAndroid='transparent'
+                                    autoCorrect={false} autoCapitalize='none' containerStyle={styles.formInputPremium} inputStyle={styles.formInputPremiumTitle} returnKeyType='done' keyboardType='numeric' underlineColorAndroid='transparent'
                                     />
                             </View>
                         </View>
