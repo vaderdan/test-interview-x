@@ -42,7 +42,7 @@ class InsuranceService {
         completion = completion || (() => {})
 
 
-        var results = realm.instance.objects('insurance').sorted('id').slice(page, page+20)
+        var results = realm.instance.objects('insurance').sorted('id').slice(page*20, (page+1)*20)
         results = _.map(results, (item) => item.toObject())
         var hasMore = results.length >= 20
 
@@ -50,7 +50,7 @@ class InsuranceService {
     }
 
     static sumInsurances() {
-        return _.toString(realm.instance.objects('insurance').sum('premium_yearly'))
+        return realm.instance.objects('insurance').sum('premium_yearly')
     }
 }
 
