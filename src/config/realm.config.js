@@ -10,7 +10,7 @@ import {
 class RealmConfig {
     constructor(models) {
         this._models = models
-        this.instance = new Realm({schema: _.values(this._models)})
+        this.instance = new Realm({schema: _.values(this._models), inMemory: process.env.NODE_ENV === 'test'})
     }
 }
 

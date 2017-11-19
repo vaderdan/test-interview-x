@@ -1,10 +1,9 @@
-import Realm from 'realm'
 import { observable } from 'mobx'
 import _ from 'lodash'
 
 
 
-class Insurance extends Realm.Object {
+class Insurance {
     static schema = {
         name: 'insurance',
         primaryKey: 'id',
@@ -17,7 +16,7 @@ class Insurance extends Realm.Object {
     }
 
     toObject() {
-        return _.assign({}, this.isValid() ? this : {})
+        return _.assign({}, this)
     }
 }
 
