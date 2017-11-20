@@ -4,13 +4,13 @@
 	"private": true,
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"test": "jest"
+		"test": "jest",
+		"release": "cd android && ./gradlew assembleRelease --debug  && cd app && jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore interviewx.keystore build/outputs/apk/app-release-unsigned.apk  -storepass 123456  interviewx && adb install build/outputs/apk/app-release-unsigned.apk"
 	},
 	"dependencies": {
 		"accounting": "^0.4.1",
 		"axios": "^0.17.1",
 		"babel-plugin-transform-decorators-legacy": "^1.3.4",
-		"babel-preset-es2015": "^6.24.1",
 		"bluebird": "^3.5.1",
 		"lodash": "^4.17.4",
 		"mobx": "^3.3.1",
@@ -29,7 +29,6 @@
 	},
 	"devDependencies": {
 		"babel-jest": "21.2.0",
-		"babel-preset-react-native": "^4.0.0",
 		"jest": "21.2.1",
 		"react-test-renderer": "16.0.0"
 	},
