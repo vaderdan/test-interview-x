@@ -24,7 +24,7 @@ import Pagination from '../lib/Pagination'
         this.props.insurancePagination.results.length
 
         return <View style={styles.containerMain}>
-            <Text style={styles.mainTitle}> Your current balance <Text style={styles.mainTitleBold}>{accounting.formatMoney(_.toNumber(InsuranceService.sumInsurances()), 'CHF ', 0)}</Text></Text>
+            <Text numberOfLines={1} style={styles.mainTitle}> Your current balance <Text style={styles.mainTitleBold}>{accounting.formatMoney(_.toNumber(InsuranceService.sumInsurances()), 'CHF ', 0)}</Text></Text>
             <Image style={styles.mainImage} resizeMode="contain" source={require('../images/front_image.png')}/>
         </View>
     }
@@ -42,9 +42,11 @@ var styles = StyleSheet.create({
     },
     mainTitle: {
         color: globalVariables.white,
-        marginBottom: 10
+        marginBottom: 10,
+        fontSize: 18,
     },
     mainTitleBold: {
+        
         fontWeight: '700'
     }
 })

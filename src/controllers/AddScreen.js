@@ -144,7 +144,7 @@ class AddScreen extends React.Component {
                         </View>
                         <View style={styles.formBlock}>
                             <FormLabel labelStyle={styles.formLabel}>category</FormLabel>
-                            <View style={[styles.formRow, {marginBottom: 20}]}>
+                            <View style={[styles.formRow, {marginBottom: 10}]}>
                                 <Icon containerStyle={styles.formIcon} color={globalVariables.black} type='font-awesome' name='list' size={15} />
                                 <PremiumCategoryButton title={categoryTitle} onPress={this.onSelectCategory}/>
                             </View>
@@ -203,7 +203,8 @@ var styles = StyleSheet.create({
         paddingLeft: 10, paddingTop: 0, margin: 0, width: 33,
     },
     formButton: {
-        marginBottom: 8
+        marginTop: 0,
+        marginBottom: 0
     },
     formOk: {
         margin: 0, marginRight: 10, marginTop: 10,  width: 20, height: 20, borderRadius: 10
