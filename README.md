@@ -1,6 +1,6 @@
 # Interview app 
 
-React native app with for insurance.
+React native app for insurance.
 
 
 ## Quick Overview
