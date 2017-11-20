@@ -7,7 +7,7 @@ React native app for insurance.
 
 install on android:
 
-(before everything else open android project with Android studio and update gradle && clean project)
+(before everything else open the android project (android sub-folder) with Android studio and update gradle && clean project)
 
 then run this script
 
