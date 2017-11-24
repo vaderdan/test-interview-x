@@ -140,7 +140,7 @@ var animatedColor = new Animated.Value(0)
   
     render() {
         return (
-            <View style={[styles.containerOuter, Platform.OS == 'android' && { marginTop: -56, paddingTop: 56 }]}>
+            <View style={[styles.containerOuter, Platform.OS == 'android' && headerStyles.androidNavbarNegativeHack]}>
                 <StatusBar barStyle="light-content"/>
                 <AppStateHelper becomeActive={this.becomeActive}/>
                 <Animated.View style={[styles.container, styles.containerMain, { transform: [{translateY: this.transformInterpolate() }] }]}>
@@ -171,6 +171,10 @@ var headerStyles = {
     },
     headerTitleStyle: {
         color: globalVariables.white
+    },
+    androidNavbarNegativeHack: {
+        marginTop: -56, 
+        paddingTop: 56
     }
 }
 

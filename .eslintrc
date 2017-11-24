@@ -7,8 +7,10 @@
         "react"
     ],
     "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended"
+        "airbnb",
+        "plugin:react/recommended",
+        "plugin:react-native/all"
+        
     ],
     "rules": {
         // overrides
