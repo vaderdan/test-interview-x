@@ -7,10 +7,10 @@ import _ from 'lodash'
 class InsuranceService {
     static refreshCategories() {
         axios.get('https://en.wikipedia.org/w/api.php?action=query&list=categorymembers&cmtitle=Category:Types_of_insurance&cmtype=subcat&format=json&origin=*')
-        .then((result) => {
-            this.saveCategories(result.data)
-        })
-        .catch((err) => {})
+            .then((result) => {
+                this.saveCategories(result.data)
+            })
+            .catch(() => {})
     }
 
     static saveCategories(data) {
@@ -22,15 +22,17 @@ class InsuranceService {
             return
         }
 
-        realm.instance.write(() => {
-            _.each(data.query.categorymembers, (item) => {
-                try {
+        try {
+            realm.instance.write(() => {
+                _.each(data.query.categorymembers, (item) => {
                     item.title = _.toString(item.title).replace(/^Category:/i, '')
 
                     realm.instance.create('insurance_category', item, true)
-                } catch (error) {}
+                })
             })
-        })
+        } catch (error) {
+            //continue regardless
+        }
     }
 
     static fetchCategories() {
