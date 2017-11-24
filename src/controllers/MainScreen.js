@@ -1,37 +1,38 @@
 import globalVariables from '../config/styles.config'
-import { width, height } from '../config/dimensions.config'
+import { height } from '../config/dimensions.config'
 import {observer} from 'mobx-react/native'
 import realm from '../config/realm.config'
+import PropTypes from 'prop-types'
 import _ from 'lodash'
 
-const React = require('react')
-const {
-    Dimensions,
+import React from 'react'
+import {
     StyleSheet,
-    ScrollView,
     View,
-    Image,
-    Text,
     StatusBar,
-    TextInput,
     Animated,
     Platform
-} = require('react-native')
+} from 'react-native'
 
 import TiltedView from '../views/TiltedView'
-import BalloonButton from '../views/BalloonButton'
 import MiddleTabbar from '../views/MiddleTabbar'
 import AlertPopup from '../views/AlertPopup'
 import AppStateHelper from '../views/AppStateHelper'
+import Pagination from '../lib/Pagination'
 
 import InsuranceService from '../services/InsuranceService'
 
-import { NavigationActions, StackNavigator, TabNavigator } from 'react-navigation'
+import { NavigationActions } from 'react-navigation'
 
 var animatedPosition = new Animated.Value(0)
 var animatedColor = new Animated.Value(0)
 
 @observer class MainScreen extends React.Component {
+
+    static propTypes = { 
+        insurancePagination: Pagination, 
+        screenProps: PropTypes.object
+    }
 
     static navigationOptions = () => ({
         title: 'My insurance',
@@ -161,7 +162,6 @@ var animatedColor = new Animated.Value(0)
 var headerStyles = { 
     headerStyle: {
         backgroundColor: globalVariables.transparent,
-        shadowOpacity: 0,
         shadowOpacity: 0,
         shadowOffset: {
             height: 0,
