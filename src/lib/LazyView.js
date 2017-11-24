@@ -1,10 +1,16 @@
 import _ from 'lodash'
+import PropTypes from 'prop-types'
 import React from 'react';
 import {
-	View
+    View
 } from 'react-native';
 
 class LazyView extends React.PureComponent {
+
+    static propTypes = { 
+        timeout: PropTypes.number,
+        children: React.Component
+    }
 
     state = {
         initialized: false
@@ -44,13 +50,13 @@ class LazyView extends React.PureComponent {
         clearTimeout(this.timeout)
     }
 
-	render() {
+    render() {
         if(!this.state.initialized){
             return <View {..._.omit(this.props, ['children'])}></View>
         }
 
         return <View {...this.props}>{this.props.children}</View>
-	}
+    }
 }
 
 export default LazyView

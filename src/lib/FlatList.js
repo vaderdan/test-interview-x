@@ -2,8 +2,8 @@ import _ from 'lodash'
 
 import React from 'react';
 import { 
-  FlatList,
-  Platform
+    FlatList,
+    Platform
 } from 'react-native';
 
 

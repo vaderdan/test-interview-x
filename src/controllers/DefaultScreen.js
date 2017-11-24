@@ -15,10 +15,6 @@ import { Button } from 'react-native-elements'
 
 class DefaultScreen extends React.Component {
 
-    onNav = () => {
-        this.props.navigation.navigate('MainScreen')
-    }
-
     render() {
         return <View style={styles.containerMain}>
             <Text style={styles.mainTitle}>Yes, We will help you make better investments and make most of your money. Figure out what suits you best and gives you best return</Text>
@@ -26,7 +22,7 @@ class DefaultScreen extends React.Component {
     }
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     containerMain: {
         flex: 1
     },

@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
-  SectionList,
-  Platform
+    SectionList,
+    Platform
 } from 'react-native';
 
 

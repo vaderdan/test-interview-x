@@ -24,14 +24,15 @@ import InsuranceService from '../services/InsuranceService'
 
 import { NavigationActions } from 'react-navigation'
 
-var animatedPosition = new Animated.Value(0)
-var animatedColor = new Animated.Value(0)
+const animatedPosition = new Animated.Value(0)
+const animatedColor = new Animated.Value(0)
 
 @observer class MainScreen extends React.Component {
 
     static propTypes = { 
         insurancePagination: Pagination, 
-        screenProps: PropTypes.object
+        screenProps: PropTypes.object,
+        navigation: PropTypes.object
     }
 
     static navigationOptions = () => ({
@@ -52,10 +53,10 @@ var animatedColor = new Animated.Value(0)
     }
 
     becomeActive = () => {
-        let navigateAction = NavigationActions.navigate({ routeName: 'MyInsuranceScreen' })
+        const navigateAction = NavigationActions.navigate({ routeName: 'MyInsuranceScreen' })
         this.navigationTop.dispatch(navigateAction)   
         
-        let navigateAction2 = NavigationActions.navigate({ routeName: 'ListInsuranceScreen' })
+        const navigateAction2 = NavigationActions.navigate({ routeName: 'ListInsuranceScreen' })
         this.navigationBottom.dispatch(navigateAction2)
 
         animatedPosition.setValue(0)
@@ -66,10 +67,10 @@ var animatedColor = new Animated.Value(0)
 
     changeSelected = (selected) => {
         if (selected == 0) {
-            let navigateAction = NavigationActions.navigate({ routeName: 'MyInsuranceScreen' })
+            const navigateAction = NavigationActions.navigate({ routeName: 'MyInsuranceScreen' })
             this.navigationTop.dispatch(navigateAction)   
             
-            let navigateAction2 = NavigationActions.navigate({ routeName: 'ListInsuranceScreen' })
+            const navigateAction2 = NavigationActions.navigate({ routeName: 'ListInsuranceScreen' })
             this.navigationBottom.dispatch(navigateAction2)
 
             Animated.timing(
@@ -80,10 +81,10 @@ var animatedColor = new Animated.Value(0)
             animatedColor.setValue(0)
         }
         else if (selected == 1) {
-            let navigateAction = NavigationActions.navigate({ routeName: 'StatsScreen' })
+            const navigateAction = NavigationActions.navigate({ routeName: 'StatsScreen' })
             this.navigationTop.dispatch(navigateAction)   
             
-            let navigateAction2 = NavigationActions.navigate({ routeName: 'DefaultScreen' })
+            const navigateAction2 = NavigationActions.navigate({ routeName: 'DefaultScreen' })
             this.navigationBottom.dispatch(navigateAction2) 
 
             Animated.timing(
@@ -94,10 +95,10 @@ var animatedColor = new Animated.Value(0)
             animatedColor.setValue(1)
         }
         else {
-            let navigateAction = NavigationActions.navigate({ routeName: 'AddScreen' })
+            const navigateAction = NavigationActions.navigate({ routeName: 'AddScreen' })
             this.navigationTop.dispatch(navigateAction)     
             
-            let navigateAction2 = NavigationActions.navigate({ routeName: 'DefaultEmptyScreen' })
+            const navigateAction2 = NavigationActions.navigate({ routeName: 'DefaultEmptyScreen' })
             this.navigationBottom.dispatch(navigateAction2)   
 
             Animated.timing(
@@ -116,7 +117,15 @@ var animatedColor = new Animated.Value(0)
     }
 
     colorInterpolate = () => {
-        return animatedColor.interpolate({inputRange: [0, 1, 2], outputRange: ['rgba(87, 217, 164, 1)', 'rgba(241, 121, 171, 1)', 'rgba(130, 120, 243, 1)'], extrapolate: 'clamp'})
+        if(this.state.selected == 0) {
+            return globalVariables.green
+        }
+        else if(this.state.selected == 1){
+            return globalVariables.pink
+        }
+        else {
+            return globalVariables.blue
+        }
     }
 
     onDelete = (item) => {
@@ -127,7 +136,7 @@ var animatedColor = new Animated.Value(0)
         this.setState({alertVisible: false, item: null})
 
         realm.instance.write(() => {
-            var insurance = realm.instance.objectForPrimaryKey('insurance', _.toPlainObject(this.state.item).id)
+            const insurance = realm.instance.objectForPrimaryKey('insurance', _.toPlainObject(this.state.item).id)
             realm.instance.delete(insurance)
         })
 
@@ -159,7 +168,7 @@ var animatedColor = new Animated.Value(0)
     }
 }
 
-var headerStyles = { 
+const headerStyles = { 
     headerStyle: {
         backgroundColor: globalVariables.transparent,
         shadowOpacity: 0,

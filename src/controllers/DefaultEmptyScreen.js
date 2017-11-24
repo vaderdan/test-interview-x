@@ -15,17 +15,13 @@ import { Button } from 'react-native-elements'
 
 class DefaultEmptyScreen extends React.Component {
 
-    onNav = () => {
-        this.props.navigation.navigate('MainScreen')
-    }
-
     render() {
         return <View style={styles.containerMain}>
         </View>
     }
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     containerMain: {
         flex: 1
     },

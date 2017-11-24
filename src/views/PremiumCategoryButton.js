@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import globalVariables from '../config/styles.config'
+import PropTypes from 'prop-types'
 
 const React = require('react')
 const {
@@ -13,6 +14,11 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 class SeparatorCell extends React.Component {
 
+    static propTypes = {
+        onPress: PropTypes.func,
+        title: PropTypes.string
+    }
+
     static defaultProps = {
         title: '',
         onPress: () => {}
@@ -23,7 +29,7 @@ class SeparatorCell extends React.Component {
     }
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     buttonContainer: {
         padding: 10
     },

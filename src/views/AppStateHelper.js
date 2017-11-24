@@ -1,13 +1,14 @@
 const React = require('react');
 const {
-  StyleSheet,
-  ScrollView,
-  View,
-  Image,
-  Text,
-  AppState
+    StyleSheet,
+    ScrollView,
+    View,
+    Image,
+    Text,
+    AppState
 } = require('react-native');
-const { Component } = React;
+const { Component } = React
+import PropTypes from 'prop-types'
 
 import _ from 'lodash'
 
@@ -16,9 +17,11 @@ import _ from 'lodash'
 
 
 class AppStateHelper extends React.Component {
-    constructor(props) {
-		super(props)
-	}
+
+    static propTypes = { 
+        becomeActive: PropTypes.func,
+        becomeInactive: PropTypes.func
+    }
 
     static defaultProps = {
         becomeActive: () => { },
@@ -27,7 +30,7 @@ class AppStateHelper extends React.Component {
 
     state = {
         appState: AppState.currentState
-	}
+    }
 
     //MARK: app state
 

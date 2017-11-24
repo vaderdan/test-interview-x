@@ -2,6 +2,7 @@ import _ from 'lodash'
 import globalVariables from '../config/styles.config'
 import {observer} from 'mobx-react/native'
 import accounting from 'accounting'
+import PropTypes from 'prop-types'
 
 const React = require('react')
 const {
@@ -18,13 +19,18 @@ import DeleteButton from './DeleteButton'
 
 @observer class InsuranceCell extends React.Component {
 
+    static propTypes = {
+        onDelete: PropTypes.func,
+        item: PropTypes.object
+    }
+
     static defaultProps = {
         item: {},
         onDelete: () => {}
     }
 
     render() {
-        var categoryTitle = (!_.isNil(this.props.item.category) && !_.isNil(this.props.item.category.title)) ? ' ('+this.props.item.category.title+')' : ''
+        const categoryTitle = (!_.isNil(this.props.item.category) && !_.isNil(this.props.item.category.title)) ? ' ('+this.props.item.category.title+')' : ''
 
         return <View style={styles.cellContainer}>
             <Text style={styles.currencyText}>CHF</Text> 
@@ -38,7 +44,7 @@ import DeleteButton from './DeleteButton'
     }
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1
     },

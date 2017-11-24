@@ -25,4 +25,6 @@ export default {
     pink: '#F779AB',
     blue: '#8278F3',
     blue2: '#5244ED',
+    semitransparent: 'rgba(0, 0, 0, 0.5)',
+    separator: '#4E5565'
 }

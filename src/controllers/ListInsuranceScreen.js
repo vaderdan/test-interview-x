@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import globalVariables from '../config/styles.config'
 import { width, height } from '../config/dimensions.config'
+import PropTypes from 'prop-types'
 import {observer} from 'mobx-react/native'
 
 const React = require('react')
@@ -22,6 +23,11 @@ import InsuranceService from '../services/InsuranceService'
 
 
 @observer class ListInsuranceScreen extends React.Component {
+
+    static propTypes = { 
+        insurancePagination: Pagination,
+        screenProps: PropTypes.object
+    }
 
     static defaultProps = {
         insurancePagination: new Pagination(),
@@ -76,7 +82,7 @@ import InsuranceService from '../services/InsuranceService'
     }
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     containerMain: {
         height: height/2.8-15
     },

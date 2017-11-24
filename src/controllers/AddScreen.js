@@ -22,8 +22,13 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { FormLabel, FormInput, Button, Icon } from 'react-native-elements'
 import Picker from 'react-native-picker'
 import InsuranceService from '../services/InsuranceService'
+import Pagination from '../lib/Pagination'
 
 class AddScreen extends React.Component {
+
+    static propTypes = { 
+        insurancePagination: Pagination,
+    }
 
     state = {
         title: '',
@@ -36,7 +41,7 @@ class AddScreen extends React.Component {
 
     onSelectCategory = () => {
         this.categories = _.isEmpty(this.categories) ? InsuranceService.fetchCategories() : this.categories
-        var categoriesTitle = _.map(this.categories, (category) => category.title)
+        let categoriesTitle = _.map(this.categories, (category) => category.title)
         categoriesTitle = _.isEmpty(categoriesTitle) ? ['No categories'] : categoriesTitle
 
         Picker.init({
@@ -63,7 +68,7 @@ class AddScreen extends React.Component {
         
 
         //error validation
-        var errors = ''
+        let errors = ''
         
         errors += (!this.isValid('title') ? 'Enter insurance title\n' : '')
         errors += (!this.isValid('premium') ? 'Enter positive premium amount\n' : '')
@@ -75,7 +80,7 @@ class AddScreen extends React.Component {
         //save in database
 
         realm.instance.write(() => {
-            var category = this.categories[this.state.categoryIndex]
+            const category = this.categories[this.state.categoryIndex]
             realm.instance.create('insurance', {id: this.randomId(), title: this.state.title, premium_yearly: _.toNumber(this.state.premium), category:category }, true)
         })
 
@@ -90,9 +95,9 @@ class AddScreen extends React.Component {
 
     isValid = (key) => {
         switch (key) {
-            case 'title': return validator.isLength(_.toString(this.state.title), {min: 1})
-            case 'premium': return validator.isFloat(_.toString(this.state.premium), {min: 1})
-            default: return false;
+        case 'title': return validator.isLength(_.toString(this.state.title), {min: 1})
+        case 'premium': return validator.isFloat(_.toString(this.state.premium), {min: 1})
+        default: return false;
         }
     }
 
@@ -107,7 +112,7 @@ class AddScreen extends React.Component {
 
 
     render() {
-        var categoryTitle = !_.isNil(this.state.category) ? 'Selected: '+this.state.category : 'Select category'
+        const categoryTitle = !_.isNil(this.state.category) ? 'Selected: '+this.state.category : 'Select category'
 
 
         return <View style={styles.containerMain}>
@@ -124,8 +129,7 @@ class AddScreen extends React.Component {
                                     placeholder='your premium title' 
                                     value={this.state.title}
                                     onChangeText={(text) => { this.setState({title: text}) }}
-                                    autoCorrect={false} autoCapitalize='none' containerStyle={styles.formInput} inputStyle={styles.formInputTitle} returnKeyType='done' keyboardType='email-address' underlineColorAndroid='transparent'
-                                    />
+                                    autoCorrect={false} autoCapitalize='none' containerStyle={styles.formInput} inputStyle={styles.formInputTitle} returnKeyType='done' keyboardType='email-address' underlineColorAndroid='transparent'/>
                             </View>
                         </View>
                         <View style={styles.formBlock}>
@@ -138,13 +142,12 @@ class AddScreen extends React.Component {
                                     placeholder='0' 
                                     value={this.state.premium}
                                     onChangeText={(text) => { this.setState({premium: text}) }}
-                                    autoCorrect={false} autoCapitalize='none' containerStyle={styles.formInputPremium} inputStyle={styles.formInputPremiumTitle} returnKeyType='done' keyboardType='numeric' underlineColorAndroid='transparent'
-                                    />
+                                    autoCorrect={false} autoCapitalize='none' containerStyle={styles.formInputPremium} inputStyle={styles.formInputPremiumTitle} returnKeyType='done' keyboardType='numeric' underlineColorAndroid='transparent'/>
                             </View>
                         </View>
                         <View style={styles.formBlock}>
                             <FormLabel labelStyle={styles.formLabel}>category</FormLabel>
-                            <View style={[styles.formRow, {marginBottom: 10}]}>
+                            <View style={[styles.formRowCategory]}>
                                 <Icon containerStyle={styles.formIcon} color={globalVariables.black} type='font-awesome' name='list' size={15} />
                                 <PremiumCategoryButton title={categoryTitle} onPress={this.onSelectCategory}/>
                             </View>
@@ -160,7 +163,7 @@ class AddScreen extends React.Component {
     }
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1
     },
@@ -196,6 +199,9 @@ var styles = StyleSheet.create({
     formRowPremium: {
         flexDirection: 'row', height: 60, alignItems: 'center'
     },
+    formRowCategory: {
+        flexDirection: 'row', height: 36, marginBottom: 10
+    },
     formInputPremiumTitle: {
         width: width-100 ,color:globalVariables.white, fontSize: 35, height: 60, textAlign: 'right'
     },
@@ -205,9 +211,6 @@ var styles = StyleSheet.create({
     formButton: {
         marginTop: 0,
         marginBottom: 0
-    },
-    formOk: {
-        margin: 0, marginRight: 10, marginTop: 10,  width: 20, height: 20, borderRadius: 10
     },
     mainImage: {
         height: 90,

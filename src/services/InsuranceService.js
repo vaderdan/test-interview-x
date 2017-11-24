@@ -44,9 +44,9 @@ class InsuranceService {
         completion = completion || (() => {})
 
 
-        var results = realm.instance.objects('insurance').sorted('id').slice(page*20, (page+1)*20)
+        let results = realm.instance.objects('insurance').sorted('id').slice(page*20, (page+1)*20)
         results = _.map(results, (item) => item.toObject())
-        var hasMore = results.length >= 20
+        const hasMore = results.length >= 20
 
         completion(null, results, hasMore)
     }

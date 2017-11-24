@@ -3,6 +3,7 @@ import globalVariables from '../config/styles.config'
 import { width, height } from '../config/dimensions.config'
 import accounting from 'accounting'
 import {observer} from 'mobx-react/native'
+import PropTypes from 'prop-types'
 
 import InsuranceService from '../services/InsuranceService'
 
@@ -19,6 +20,10 @@ import Pagination from '../lib/Pagination'
 
 @observer class MyInsuranceScreen extends React.Component {
 
+    static propTypes = { 
+        insurancePagination: Pagination
+    }
+
     render() {
         //this hack is needed so to observe insurance list
         this.props.insurancePagination.results.length
@@ -30,7 +35,7 @@ import Pagination from '../lib/Pagination'
     }
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     containerMain: {
         flex: 1,
         justifyContent: 'flex-end'

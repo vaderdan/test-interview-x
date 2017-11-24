@@ -1,19 +1,20 @@
 {
     "parser": "babel-eslint",
     "env": {
-        "browser": true
+        "browser": true,
+        "es6": true
     },
     "plugins": [
         "react"
     ],
     "extends": [
-        "airbnb",
         "plugin:react/recommended",
         "plugin:react-native/all"
-        
     ],
     "rules": {
         // overrides
-        "indent": ["error", 4]
+        "indent": ["error", 4],
+        "prefer-const": "error",
+        "no-var": "error"
     }
 }

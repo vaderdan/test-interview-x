@@ -22,7 +22,7 @@ class StatsScreen extends React.Component {
     }
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     containerMain: {
         flex: 1,
         justifyContent: 'flex-end',

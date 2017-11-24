@@ -10,6 +10,7 @@
     "exclude": [
         "node_modules"
     ],
-    "javascript.format.enable": false,
-    "prettier.eslintIntegration": true
+    "eslint.workingDirectories": [
+        "./src"
+    ]
 }

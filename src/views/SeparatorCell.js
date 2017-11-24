@@ -18,9 +18,14 @@ class SeparatorCell extends React.Component {
     }
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     separator: {
-        position: 'absolute', height: 2, left: 30, right: 15, bottom: 0, backgroundColor: '#4E5565'
+        position: 'absolute',
+        height: 2,
+        left: 30,
+        right: 15,
+        bottom: 0,
+        backgroundColor: globalVariables.separator
     }
 })
 
