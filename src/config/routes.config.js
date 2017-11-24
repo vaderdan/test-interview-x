@@ -13,7 +13,7 @@ const { Component } = React;
 import hocStopComponent from '../hocs/hocStopComponent'
 import hocPropsComponent from '../hocs/hocPropsComponent'
 
-let routes = {
+const routes = {
     MainScreen: { screen: hocStopComponent(hocPropsComponent(MainScreen)) },
     MyInsuranceScreen: { screen: hocStopComponent(hocPropsComponent(MyInsuranceScreen)) },
     ListInsuranceScreen: { screen: hocStopComponent(hocPropsComponent(ListInsuranceScreen)) },

@@ -1,8 +1,8 @@
 const {
-  Dimensions
+    Dimensions
 } = require('react-native')
 
 const window = Dimensions.get('window')
 
-export let width = window.width
-export let height = window.height
+export const width = window.width
+export const height = window.height
